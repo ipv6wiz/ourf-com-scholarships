@@ -34,7 +34,7 @@ class ScholarshipsModel extends ListModel
             $db->quoteName('scholarship_college_name', 'College'),
             $db->quoteName('scholarship_department_name', 'Department'),
         ])
-            ->from('#__scholarships', 'a')
+            ->from($db->quoteName('#__scholarships', 'a'))
             ->join('LEFT', $db->quoteName('#__scholarship_status', 'b'), $db->quoteName('scholarship_fk_scholarship_status').' = '.$db->quoteName('b.id'))
             ->join('LEFT', $db->quoteName('#__scholarship_colleges', 'c'), $db->quoteName('scholarship_fk_scholarship_college').' = '.$db->quoteName('c.id'))
             ->join('LEFT', $db->quoteName('#__scholarship_departments', 'd'), $db->quoteName('scholarship_fk_scholarship_department').' = '.$db->quoteName('d.id'))
