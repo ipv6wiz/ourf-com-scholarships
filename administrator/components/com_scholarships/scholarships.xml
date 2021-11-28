@@ -7,6 +7,7 @@
     <authorUrl>https://MultiMediaCommunications.net</authorUrl>
     <copyright>OURF 2021 All rights reserved</copyright>
     <license>GNU General Public License version 2 or later;</license>
+    <version>1.0.1</version>
     <description>COM_SCHOLARSHIPS_XML_DESCRIPTION</description>
     <namespace path="src/">OURF\Component\Scholarships</namespace>
     <scriptfile>script.php</scriptfile>
@@ -41,4 +42,5 @@
     <updateservers>
         <server type="extension" name="Scholarship Component Updates">https://raw.githubusercontent.com/ipv6wiz/ourf-com-scholarships/main/scholarship_update.xml</server>
     </updateservers>
+    <dlid prefix="dlid" suffix="" />
 </extension>
