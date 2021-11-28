@@ -17,6 +17,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
  */
 class HtmlView extends BaseHtmlView
 {
+    protected $items;
     /**
      * Method to display the view.
      *
@@ -28,6 +29,7 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null): void
     {
+        $this->items = $this->get('Items');
         parent::display($tpl);
     }
 }

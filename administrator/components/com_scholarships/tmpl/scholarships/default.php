@@ -9,4 +9,12 @@
 
 \defined('_JEXEC') or die;
 ?>
-Hello Scholarships
+<table>
+<?php foreach ($this->items as $i=> $item): ?>
+    <tr>
+        <?php foreach ($item as $key => $col): ?>
+            <td><?php echo $col; ?></td>
+        <?php endforeach; ?>
+    </tr>
+<?php endforeach; ?>
+</table>
