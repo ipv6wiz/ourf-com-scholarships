@@ -9,4 +9,4 @@
 
 \defined('_JEXEC') or die;
 ?>
-Hello Scholarships Frontend
+Hello Scholarships Frontend: <?php echo $this->msg; ?>
