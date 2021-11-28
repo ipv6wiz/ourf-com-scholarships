@@ -7,7 +7,7 @@
  * @license     GPL2
  */
 
-namespace OURF\Component\Scholarships\Site\View\Foo;
+namespace OURF\Component\Scholarships\Site\View\Scholarship;
 \defined('_JEXEC') or die;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 /**
@@ -22,14 +22,13 @@ class HtmlView extends BaseHtmlView
      *
      * @param string $tpl The name of the template file to parse; automatically searches through the template paths.
      *
-     * @return  mixed  A string if successful, otherwise an Error object.
+     * @return  void  A string if successful, otherwise an Error object.
      *
      * @throws \Exception
      * @since sometime
      */
-    public function display($tpl = null): mixed
+    public function display($tpl = null)
     {
         parent::display($tpl);
-        return true;
     }
 }

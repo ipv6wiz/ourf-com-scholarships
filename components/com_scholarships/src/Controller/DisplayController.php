@@ -7,12 +7,12 @@
  * @license     GPL2
  */
 
-namespace OURF\Component\Foos\Site\Controller;
+namespace OURF\Component\Scholarships\Site\Controller;
 \defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 /**
- * Foos Component Controller
+ * Scholarships Component Controller
  *
  * @since  __BUMP_VERSION__
  */
@@ -34,14 +34,16 @@ class DisplayController extends BaseController
     {
         parent::__construct($config, $factory, $app, $input);
     }
+
     /**
      * Method to display a view.
      *
-     * @param   boolean  $cachable   If true, the view output will be cached
-     * @param   array    $urlparams  An array of safe URL parameters and their variable types, for valid values see {@link \JFilterInput::clean()}.
+     * @param boolean $cachable If true, the view output will be cached
+     * @param array $urlparams An array of safe URL parameters and their variable types, for valid values see {@link \JFilterInput::clean()}.
      *
      * @return  static  This object to support chaining.
      *
+     * @throws \Exception
      * @since   __BUMP_VERSION__
      */
     public function display($cachable = false, $urlparams = [])
