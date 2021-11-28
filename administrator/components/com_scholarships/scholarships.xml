@@ -37,8 +37,8 @@
             <folder>tmpl</folder>
         </files>
     </administration>
-    <changelogurl>https://raw.githubusercontent.com/astridx/boilerplate/tutorial/changelog.xml</changelogurl>
+    <changelogurl>https://raw.githubusercontent.com/ipv6wiz/ourf-com-scholarships/main/changelog.xml</changelogurl>
     <updateservers>
-        <server type="extension" name="Foo Updates">https://raw.githubusercontent.com/astridx/boilerplate/tutorial/foo_update.xml</server>
+        <server type="extension" name="Scholarship Component Updates">https://raw.githubusercontent.com/ipv6wiz/ourf-com-scholarships/main/scholarship_update.xml</server>
     </updateservers>
 </extension>
