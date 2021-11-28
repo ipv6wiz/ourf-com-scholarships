@@ -37,4 +37,8 @@
             <folder>tmpl</folder>
         </files>
     </administration>
+    <changelogurl>https://raw.githubusercontent.com/astridx/boilerplate/tutorial/changelog.xml</changelogurl>
+    <updateservers>
+        <server type="extension" name="Foo Updates">https://raw.githubusercontent.com/astridx/boilerplate/tutorial/foo_update.xml</server>
+    </updateservers>
 </extension>
