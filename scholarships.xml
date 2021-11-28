@@ -27,6 +27,8 @@
         </schemas>
     </update>
     <files folder="components/com_scholarships">
+        <folder>services</folder>
+        <folder>sql</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
     </files>
