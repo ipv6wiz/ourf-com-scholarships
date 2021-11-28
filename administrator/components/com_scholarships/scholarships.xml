@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="component" method="upgrade">
+    <name>COM_SCHOLARSHIPS</name>
+    <creationDate>2021-11-27</creationDate>
+    <author>John Page</author>
+    <authorEmail>johnpage@MultiMediaCommunications.net</authorEmail>
+    <authorUrl>https://MultiMediaCommunications.net</authorUrl>
+    <copyright>OURF 2021 All rights reserved</copyright>
+    <license>GNU General Public License version 2 or later;</license>
+    <description>COM_SCHOLARSHIPS_XML_DESCRIPTION</description>
+    <namespace path="src/">OURF\Component\Scholarships</namespace>
+    <scriptfile>script.php</scriptfile>
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+    <administration>
+        <menu view="scholarships">COM_SCHOLARSHIPS</menu>
+        <submenu>
+            <menu link="option=com_scholarships">COM_SCHOLARSHIPS</menu>
+        </submenu>
+        <files folder="administrator/components/com_scholarships">
+            <filename>scholarships.xml</filename>
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+        </files>
+    </administration>
+</extension>
