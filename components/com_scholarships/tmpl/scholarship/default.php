@@ -8,5 +8,6 @@
  */
 
 \defined('_JEXEC') or die;
-?>
-Hello Scholarships Frontend: <?php echo $this->msg; ?>
+use Joomla\CMS\Language\Text;
+
+echo Text::_('COM_SCHOLARSHIPS_RECIPIENT').$this->item->recipient;

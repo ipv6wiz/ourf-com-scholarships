@@ -28,7 +28,7 @@ class ScholarshipsModel extends ListModel
         $db = $this->getDbo();
         $query = $db->getQuery(true);
         $query->select([
-            $db->quoteName('a.id', 'ID'),
+            $db->quoteName('a.id', 'id'),
             $db->quoteName('scholarship_year', 'year'),
             $db->quoteName('scholarship_recipient', 'recipient'),
             $db->quoteName('scholarship_college_name', 'college'),

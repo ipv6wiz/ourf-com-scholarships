@@ -38,6 +38,9 @@ use Joomla\CMS\Router\Route;
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_DEPARTMENT'); ?>
                             </th>
                             <th scope="col">
+                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_STATUS'); ?>
+                            </th>
+                            <th scope="col">
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_ID'); ?>
                             </th>
                         </tr>
@@ -52,9 +55,6 @@ use Joomla\CMS\Router\Route;
                                     <?php echo $item->year; ?>
                                 </td>
                                 <th scope="row" class="has-context">
-                                    <div>
-                                        <?php echo $this->escape($item->recipient); ?>
-                                    </div>
                                     <?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
                                     <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_scholarships&task=scholarship.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->recipient)); ?>">
                                         <?php echo $editIcon; ?><?php echo $this->escape($item->recipient); ?></a>
@@ -64,6 +64,9 @@ use Joomla\CMS\Router\Route;
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->department; ?>
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo $item->status; ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->id; ?>
