@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<form>
+    <fieldset>
+        <field
+            name="id"
+            type="number"
+            label="JGLOBAL_FIELD_ID_LABEL"
+            default="0"
+            class="readonly"
+            readonly="true"
+        />
+        <field
+            name="scholarship_year"
+            type="number"
+            label="COM_SCHOLARSHIPS_FIELD_YEAR_LABEL"
+            required="true"
+            size="4"
+        />
+        <field
+            name="scholarship_recipient"
+            type="text"
+            label="COM_SCHOLARSHIPS_FIELD_RECIPIENT_LABEL"
+            size="50"
+            required="true"
+        />
+        <field
+            name="scholarship_fk_scholarship_status"
+            type="sql"
+            default="1"
+            label="Select a Status"
+            query="SELECT id, scholarship_status_option FROM #__scholarship_status"
+            key_field="id"
+            value_field="scholarship_status_option"
+            required="true"
+            header="Please select the status"
+        />
+        <field
+            name="scholarship_fk_scholarship_college"
+            type="sql"
+            default=""
+            label="Select a College"
+            query="SELECT id, scholarship_college_name FROM #__scholarship_colleges"
+            key_field="id"
+            value_field="scholarship_college_name"
+            required="true"
+            header="Please select the college"
+        />
+        <field
+            name="scholarship_fk_scholarship_department"
+            type="sql"
+            default=""
+            label="Select a Department"
+            query="SELECT id, scholarship_department_name FROM #__scholarship_departments"
+            key_field="id"
+            value_field="scholarship_department_name"
+            required="true"
+            header="Please select the department"
+        />
+    </fieldset>
+</form>

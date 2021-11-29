@@ -29,10 +29,10 @@ class ScholarshipsModel extends ListModel
         $query = $db->getQuery(true);
         $query->select([
             $db->quoteName('a.id', 'ID'),
-            $db->quoteName('scholarship_year', 'Year'),
-            $db->quoteName('scholarship_recipient', 'Recipient'),
-            $db->quoteName('scholarship_college_name', 'College'),
-            $db->quoteName('scholarship_department_name', 'Department'),
+            $db->quoteName('scholarship_year', 'year'),
+            $db->quoteName('scholarship_recipient', 'recipient'),
+            $db->quoteName('scholarship_college_name', 'college'),
+            $db->quoteName('scholarship_department_name', 'department'),
         ])
             ->from($db->quoteName('#__scholarships', 'a'))
             ->join('LEFT', $db->quoteName('#__scholarship_status', 'b'), $db->quoteName('scholarship_fk_scholarship_status').' = '.$db->quoteName('b.id'))
