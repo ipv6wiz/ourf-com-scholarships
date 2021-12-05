@@ -56,5 +56,38 @@
             required="true"
             header="Please select the department"
         />
+        <field
+                name="scholarship_abstract_pdf"
+                type="AbstractUpload"
+                label="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_PDF_LABEL"
+                description="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_PDF_DESC"
+                directory="abstracts"
+                fileType="file"
+                accept="pdf"
+                preview="false"
+                size="50"
+                class="input-large"
+        />
+        <field
+                name="scholarship_abstract_title"
+                type="text"
+                label="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_TITLE_LABEL"
+                description="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_TITLE_DESC"
+                size="100"
+                class="inputbox"
+                default=""
+        />
+        <field
+                name="scholarship_profile_pdf"
+                type="AbstractUpload"
+                label="COM_SCHOLARSHIP_SCHOLARSHIP_PROFILE_PDF_LABEL"
+                description="COM_SCHOLARSHIP_SCHOLARSHIP_PROFILE_PDF_DESC"
+                directory="profiles"
+                fileType="file"
+                accept="pdf"
+                preview="false"
+                size="50"
+                class="input-large"
+        />
     </fieldset>
 </form>
