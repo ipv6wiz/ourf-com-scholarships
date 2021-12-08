@@ -58,7 +58,7 @@
         />
         <field
                 name="scholarship_abstract_pdf"
-                type="file"
+                type="image"
                 label="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_PDF_LABEL"
                 accept=".pdf"
         />
