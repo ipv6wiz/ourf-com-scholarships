@@ -103,7 +103,7 @@ class ScholarshipsComponent extends MVCComponent implements
      */
     public function getWorkflowTableBySection(?string $section = null): string
     {
-        return '#__content';
+        return '#__scholarships';
     }
 
     /**

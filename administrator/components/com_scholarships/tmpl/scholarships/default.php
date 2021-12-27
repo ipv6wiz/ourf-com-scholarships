@@ -133,7 +133,7 @@ endif;
                                         'id' => 'state-' . $item->id
                                     ];
                                     // echo "<pre>".print_r($item,true)."</pre><br>";
-                                    echo (new PublishedButton)->render((int) $item->published, $i, $options, $item->publish_up, $item->publish_down);
+                                    echo (new PublishedButton)->render((int) $item->state, $i, $options, $item->publish_up, $item->publish_down);
                                     ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
