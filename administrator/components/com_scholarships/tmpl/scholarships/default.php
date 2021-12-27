@@ -9,9 +9,15 @@
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Button\PublishedButton;
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Joomla\Utilities\ArrayHelper;
+
+$user      = Factory::getUser();
+$userId = $user->id;
 ?>
 <form action="<?php echo Route::_('index.php?option=com_scholarships'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
@@ -41,6 +47,9 @@ use Joomla\CMS\Router\Route;
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_STATUS'); ?>
                             </th>
                             <th scope="col">
+                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_PUBLISHED'); ?>
+                            </th>
+                            <th scope="col">
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_ID'); ?>
                             </th>
                         </tr>
@@ -49,6 +58,15 @@ use Joomla\CMS\Router\Route;
                         <?php
                         $n = count($this->items);
                         foreach ($this->items as $i => $item) :
+                            $item->max_ordering = 0;
+                            $canEdit          = $user->authorise('core.edit',       'com_content.article.' . $item->id);
+                            $canCheckin       = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $userId || is_null($item->checked_out);
+                            $canEditOwn       = $user->authorise('core.edit.own',   'com_content.article.' . $item->id) && $item->created_by == $userId;
+                            $canChange        = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
+                            $canEditCat       = $user->authorise('core.edit',       'com_content.category.' . $item->catid);
+                            $canEditOwnCat    = $user->authorise('core.edit.own',   'com_content.category.' . $item->catid) && $item->category_uid == $userId;
+                            $canEditParCat    = $user->authorise('core.edit',       'com_content.category.' . $item->parent_category_id);
+                            $canEditOwnParCat = $user->authorise('core.edit.own',   'com_content.category.' . $item->parent_category_id) && $item->parent_category_uid == $userId;
                             ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="d-none d-md-table-cell">
@@ -67,6 +85,16 @@ use Joomla\CMS\Router\Route;
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->status; ?>
+                                </td>
+                                <td class="article-status text-center">
+                                    <?php
+                                    $options = [
+                                        'task_prefix' => 'scholarships.',
+                                        'id' => 'state-' . $item->id
+                                    ];
+                                    // echo "<pre>".print_r($item,true)."</pre><br>";
+                                    echo (new PublishedButton)->render((int) $item->state, $i, $options, $item->publish_up, $item->publish_down);
+                                    ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->id; ?>
