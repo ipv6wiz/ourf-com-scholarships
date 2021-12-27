@@ -7,7 +7,7 @@
     <authorUrl>https://MultiMediaCommunications.net</authorUrl>
     <copyright>OURF 2021 All rights reserved</copyright>
     <license>GNU General Public License version 2 or later;</license>
-    <version>1.0.19</version>
+    <version>1.0.20</version>
     <description>COM_SCHOLARSHIPS_XML_DESCRIPTION</description>
     <namespace path="src/">OURF\Component\Scholarships</namespace>
     <scriptfile>script.php</scriptfile>
@@ -37,6 +37,7 @@
             <menu link="option=com_scholarships">COM_SCHOLARSHIPS</menu>
         </submenu>
         <files folder="administrator/components/com_scholarships">
+            <filename>config.xml</filename>
             <folder>language</folder>
             <folder>forms</folder>
             <folder>services</folder>
@@ -46,7 +47,6 @@
         </files>
         <files folder="./">
             <filename>scholarships.xml</filename>
-            <filename>config.xml</filename>
         </files>
     </administration>
     <changelogurl>https://raw.githubusercontent.com/ipv6wiz/ourf-com-scholarships/main/changelog.xml</changelogurl>
