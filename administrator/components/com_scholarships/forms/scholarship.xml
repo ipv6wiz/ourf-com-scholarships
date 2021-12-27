@@ -70,6 +70,14 @@
                 type="media"
                 label="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_PDF_LABEL"
                 directory="scholarship/abstracts"
+                preview="false"
+        />
+        <field
+                name="scholarship_profile_pdf"
+                type="media"
+                label="COM_SCHOLARSHIP_SCHOLARSHIP_PROFILE_PDF_LABEL"
+                directory="scholarship/profiles"
+                preview="false"
         />
     </fieldset>
 </form>

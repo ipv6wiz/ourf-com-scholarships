@@ -27,6 +27,7 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
     <?php echo $this->getForm()->renderField('scholarship_fk_scholarship_department'); ?>
     <?php echo $this->getForm()->renderField('scholarship_abstract_pdf'); ?>
     <?php echo $this->getForm()->renderField('scholarship_abstract_title'); ?>
+    <?php echo $this->getForm()->renderField('scholarship_profile_pdf'); ?>
     <input type="hidden" name="task" value="">
     <?php echo HTMLHelper::_('form.token'); ?>
 </form>
