@@ -4,7 +4,7 @@
     <fieldset
             name="integration"
             label="JGLOBAL_INTEGRATION_LABEL"
-            description="COM_CONTENT_CONFIG_INTEGRATION_SETTINGS_DESC"
+            description="COM_SCHOLARSHIP_CONFIG_INTEGRATION_SETTINGS_DESC"
     >
         <fieldset
                 name="integration_customfields"
