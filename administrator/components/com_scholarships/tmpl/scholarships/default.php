@@ -10,6 +10,7 @@
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Button\PublishedButton;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -18,6 +19,38 @@ use Joomla\Utilities\ArrayHelper;
 
 $user      = Factory::getUser();
 $userId = $user->id;
+$workflow_enabled  = ComponentHelper::getParams('com_scholarships')->get('workflow_enabled');
+$workflow_state    = false;
+$workflow_featured = false;
+
+if ($workflow_enabled) :
+
+// @todo move the script to a file
+    $js = <<<JS
+(function() {
+	document.addEventListener('DOMContentLoaded', function() {
+	  var elements = [].slice.call(document.querySelectorAll('.scholarship-status'));
+
+	  elements.forEach(function (element) {
+		element.addEventListener('click', function(event) {
+			event.stopPropagation();
+		});
+	  });
+	});
+})();
+JS;
+
+    /** @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
+    $wa = $this->document->getWebAssetManager();
+
+    $wa->getRegistry()->addExtensionRegistryFile('com_workflow');
+    $wa->useScript('com_workflow.admin-items-workflow-buttons')
+        ->addInlineScript($js, [], ['type' => 'module']);
+
+    $workflow_state    = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.state', 'com_scholarships.scholarship');
+    $workflow_featured = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.featured', 'com_scholarships.scholarship');
+
+endif;
 ?>
 <form action="<?php echo Route::_('index.php?option=com_scholarships'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
@@ -59,14 +92,14 @@ $userId = $user->id;
                         $n = count($this->items);
                         foreach ($this->items as $i => $item) :
                             $item->max_ordering = 0;
-                            $canEdit          = $user->authorise('core.edit',       'com_content.article.' . $item->id);
+                            $canEdit          = $user->authorise('core.edit',       'com_scholarships.scholarship.' . $item->id);
                             $canCheckin       = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $userId || is_null($item->checked_out);
-                            $canEditOwn       = $user->authorise('core.edit.own',   'com_content.article.' . $item->id) && $item->created_by == $userId;
-                            $canChange        = $user->authorise('core.edit.state', 'com_content.article.' . $item->id) && $canCheckin;
-                            $canEditCat       = $user->authorise('core.edit',       'com_content.category.' . $item->catid);
-                            $canEditOwnCat    = $user->authorise('core.edit.own',   'com_content.category.' . $item->catid) && $item->category_uid == $userId;
-                            $canEditParCat    = $user->authorise('core.edit',       'com_content.category.' . $item->parent_category_id);
-                            $canEditOwnParCat = $user->authorise('core.edit.own',   'com_content.category.' . $item->parent_category_id) && $item->parent_category_uid == $userId;
+                            $canEditOwn       = $user->authorise('core.edit.own',   'com_scholarships.scholarship.' . $item->id) && $item->created_by == $userId;
+                            $canChange        = $user->authorise('core.edit.state', 'com_scholarships.scholarship.' . $item->id) && $canCheckin;
+                            $canEditCat       = $user->authorise('core.edit',       'com_scholarships.category.' . $item->catid);
+                            $canEditOwnCat    = $user->authorise('core.edit.own',   'com_scholarships.category.' . $item->catid) && $item->category_uid == $userId;
+                            $canEditParCat    = $user->authorise('core.edit',       'com_scholarships.category.' . $item->parent_category_id);
+                            $canEditOwnParCat = $user->authorise('core.edit.own',   'com_scholarships.category.' . $item->parent_category_id) && $item->parent_category_uid == $userId;
                             ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="d-none d-md-table-cell">
@@ -86,7 +119,7 @@ $userId = $user->id;
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->status; ?>
                                 </td>
-                                <td class="article-status text-center">
+                                <td class="scholarship-status text-center">
                                     <?php
                                     $options = [
                                         'task_prefix' => 'scholarships.',
