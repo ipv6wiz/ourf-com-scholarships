@@ -11,13 +11,17 @@ namespace OURF\Component\Scholarships\Administrator\Model;
 \defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\MVC\Model\WorkflowBehaviorTrait;
+use Joomla\CMS\MVC\Model\WorkflowModelInterface;
+
 /**
  * Item Model for a Scholarship.
  *
  * @since  __BUMP_VERSION__
  */
-class ScholarshipModel extends AdminModel
+class ScholarshipModel extends AdminModel implements WorkflowModelInterface
 {
+    use WorkflowBehaviorTrait;
     /**
      * The type alias for this content type.
      *
@@ -72,5 +76,22 @@ class ScholarshipModel extends AdminModel
     protected function prepareTable($table)
     {
         $table->generateAlias();
+    }
+
+    /**
+     * Method to change the published state of one or more records.
+     *
+     * @param   array    &$pks   A list of the primary keys to change.
+     * @param   integer  $value  The value of the published state.
+     *
+     * @return  boolean  True on success.
+     *
+     * @since   4.0.0
+     */
+    public function publish(&$pks, $value = 1)
+    {
+        $this->workflowBeforeStageChange();
+
+        return parent::publish($pks, $value);
     }
 }
