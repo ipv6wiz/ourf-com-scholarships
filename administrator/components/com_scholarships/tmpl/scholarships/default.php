@@ -64,6 +64,9 @@ endif;
                     <table class="table" id="scholarshipList">
                         <thead>
                         <tr>
+                            <td class="w-1 text-center">
+                                <?php echo HTMLHelper::_('grid.checkall'); ?>
+                            </td>
                             <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_YEAR'); ?>
                             </th>
@@ -102,6 +105,9 @@ endif;
                             $canEditOwnParCat = $user->authorise('core.edit.own',   'com_scholarships.category.' . $item->parent_category_id) && $item->parent_category_uid == $userId;
                             ?>
                             <tr class="row<?php echo $i % 2; ?>">
+                                <td class="text-center">
+                                    <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->recipient); ?>
+                                </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->year; ?>
                                 </td>
@@ -123,6 +129,7 @@ endif;
                                     <?php
                                     $options = [
                                         'task_prefix' => 'scholarships.',
+                                        'disabled' => $workflow_state || !$canChange,
                                         'id' => 'state-' . $item->id
                                     ];
                                     // echo "<pre>".print_r($item,true)."</pre><br>";
