@@ -10,6 +10,8 @@
 namespace OURF\Component\Scholarships\Administrator\Model;
 \defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormFactoryInterface;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\MVC\Model\WorkflowBehaviorTrait;
 use Joomla\CMS\MVC\Model\WorkflowModelInterface;
@@ -29,6 +31,42 @@ class ScholarshipModel extends AdminModel implements WorkflowModelInterface
      * @since  __BUMP_VERSION__
      */
     public $typeAlias = 'com_scholarships.scholarship';
+
+    public function __construct($config = array(), MVCFactoryInterface $factory = null, FormFactoryInterface $formFactory = null)
+    {
+        parent::__construct($config, $factory, $formFactory);
+        $this->setUpWorkflow('com_scholarships.scholarship');
+    }
+
+    /**
+     * Method to test whether a record can have its state edited.
+     *
+     * @param   object  $record  A record object.
+     *
+     * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
+     *
+     * @since   1.6
+     */
+    protected function canEditState($record)
+    {
+        $user = Factory::getUser();
+
+        // Check for existing article.
+        if (!empty($record->id))
+        {
+            return $user->authorise('core.edit.state', 'com_scholarships.scholarship.' . (int) $record->id);
+        }
+
+        // New article, so check against the category.
+        if (!empty($record->catid))
+        {
+            return $user->authorise('core.edit.state', 'com_scholarships.category.' . (int) $record->catid);
+        }
+
+        // Default to component settings if neither article nor category known.
+        return parent::canEditState($record);
+    }
+
     /**
      * Method to get the row form.
      *
@@ -93,5 +131,15 @@ class ScholarshipModel extends AdminModel implements WorkflowModelInterface
         $this->workflowBeforeStageChange();
 
         return parent::publish($pks, $value);
+    }
+
+    public function save($data)
+    {
+        $this->workflowBeforeSave();
+        if(parent::save($data)) {
+            $this->workflowAfterSave($data);
+            return true;
+        }
+        return false;
     }
 }
