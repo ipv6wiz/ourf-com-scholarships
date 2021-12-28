@@ -48,8 +48,8 @@ JS;
         ->addInlineScript($js, [], ['type' => 'module']);
 
     $workflow_state    = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.state', 'com_scholarships.scholarship');
-   // $workflow_featured = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.featured', 'com_scholarships.scholarship');
-
+    $workflow_featured = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.featured', 'com_scholarships.scholarship');
+    echo '<pre>WF State : '.$workflow_state.'</pre><br>';
 endif;
 ?>
 <form action="<?php echo Route::_('index.php?option=com_scholarships'); ?>" method="post" name="adminForm" id="adminForm">
