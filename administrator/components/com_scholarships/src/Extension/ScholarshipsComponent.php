@@ -9,6 +9,9 @@
 
 namespace OURF\Component\Scholarships\Administrator\Extension;
 defined('JPATH_PLATFORM') or die;
+
+use Joomla\CMS\Association\AssociationServiceInterface;
+use Joomla\CMS\Association\AssociationServiceTrait;
 use Joomla\CMS\Categories\CategoryServiceInterface;
 use Joomla\CMS\Categories\CategoryServiceTrait;
 use Joomla\CMS\Component\Router\RouterServiceInterface;
@@ -29,8 +32,9 @@ use Psr\Container\ContainerInterface;
  * @since  1.0.0
  */
 class ScholarshipsComponent extends MVCComponent implements
-    BootableExtensionInterface, CategoryServiceInterface, WorkflowServiceInterface, RouterServiceInterface
+    BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface,WorkflowServiceInterface, RouterServiceInterface
 {
+    use AssociationServiceTrait;
     use CategoryServiceTrait;
     use RouterServiceTrait;
     use HTMLRegistryAwareTrait;
