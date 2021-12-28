@@ -15,7 +15,7 @@ use Joomla\CMS\Log\Log;
  *
  * @since  1.0.0
  */
-class Com_FoosInstallerScript
+class Com_ScholarshipsInstallerScript
 {
     /**
      * Minimum Joomla version to check
