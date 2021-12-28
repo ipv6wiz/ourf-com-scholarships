@@ -7,7 +7,7 @@
     <authorUrl>https://MultiMediaCommunications.net</authorUrl>
     <copyright>OURF 2021 All rights reserved</copyright>
     <license>GNU General Public License version 2 or later;</license>
-    <version>1.0.33</version>
+    <version>1.0.34</version>
     <description>COM_SCHOLARSHIPS_XML_DESCRIPTION</description>
     <namespace path="src/">OURF\Component\Scholarships</namespace>
     <scriptfile>script.php</scriptfile>

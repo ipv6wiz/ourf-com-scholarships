@@ -21,10 +21,12 @@ use Joomla\CMS\Extension\Service\Provider\MVCFactory;
 use Joomla\CMS\Extension\Service\Provider\RouterFactory;
 use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
-use Joomla\Component\Associations\Administrator\Helper\AssociationsHelper;
+
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use OURF\Component\Scholarships\Administrator\Extension\ScholarshipsComponent;
+use OURF\Component\Scholarships\Administrator\Helper\AssociationsHelper;
+
 /**
  * The foos service provider.
  * https://github.com/joomla/joomla-cms/pull/20217
