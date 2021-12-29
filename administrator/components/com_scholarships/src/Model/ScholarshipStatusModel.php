@@ -8,7 +8,6 @@
  */
 
 namespace OURF\Component\Scholarships\Administrator\Model;
-\defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormFactoryInterface;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
@@ -16,26 +15,23 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\MVC\Model\WorkflowBehaviorTrait;
 use Joomla\CMS\MVC\Model\WorkflowModelInterface;
 
-/**
- * Item Model for a Scholarship.
- *
- * @since  __BUMP_VERSION__
- */
-class ScholarshipModel extends AdminModel implements WorkflowModelInterface
+\defined('_JEXEC') or die;
+
+class ScholarshipStatusModel extends AdminModel implements WorkflowModelInterface
 {
     use WorkflowBehaviorTrait;
-    /**
-     * The type alias for this content type.
-     *
-     * @var    string
-     * @since  __BUMP_VERSION__
-     */
-    public $typeAlias = 'com_scholarships.scholarship';
+
+    public $typeAlias = '';
+    private $componentName = '';
+    private $formName = '';
 
     public function __construct($config = array(), MVCFactoryInterface $factory = null, FormFactoryInterface $formFactory = null)
     {
         parent::__construct($config, $factory, $formFactory);
-        $this->setUpWorkflow('com_scholarships.scholarship');
+        $this->typeAlias = $this->getTable()->typeAlias;
+        $this->componentName = preg_split('.', $this->typeAlias)[0];
+        $this->formName = preg_split('.', $this->typeAlias)[1];
+        $this->setUpWorkflow($this->typeAlias);
     }
 
     /**
@@ -54,13 +50,13 @@ class ScholarshipModel extends AdminModel implements WorkflowModelInterface
         // Check for existing article.
         if (!empty($record->id))
         {
-            return $user->authorise('core.edit.state', 'com_scholarships.scholarship.' . (int) $record->id);
+            return $user->authorise('core.edit.state', $this->typeAlias.'.' . (int) $record->id);
         }
 
         // New article, so check against the category.
         if (!empty($record->catid))
         {
-            return $user->authorise('core.edit.state', 'com_scholarships.category.' . (int) $record->catid);
+            return $user->authorise('core.edit.state', $this->componentName.'.category.' . (int) $record->catid);
         }
 
         // Default to component settings if neither article nor category known.
@@ -81,28 +77,13 @@ class ScholarshipModel extends AdminModel implements WorkflowModelInterface
     public function getForm($data = [], $loadData = true)
     {
         // Get the form.
-        $form = $this->loadForm($this->typeAlias, 'scholarship', ['control' => 'jform', 'load_data' => $loadData]);
+        $form = $this->loadForm($this->typeAlias, $this->formName, ['control' => 'jform', 'load_data' => $loadData]);
         if (empty($form)) {
             return false;
         }
         return $form;
     }
 
-    /**
-     * Method to get the data that should be injected in the form.
-     *
-     * @return  mixed  The data for the form.
-     *
-     * @throws \Exception
-     * @since   __BUMP_VERSION__
-     */
-    protected function loadFormData()
-    {
-        $app = Factory::getApplication();
-        $data = $this->getItem();
-        $this->preprocessData($this->typeAlias, $data);
-        return $data;
-    }
     /**
      * Prepare and sanitise the table prior to saving.
      *

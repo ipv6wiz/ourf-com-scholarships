@@ -24,6 +24,7 @@ class ScholarshipCollegeTable extends Table
         $this->typeAlias = 'com_scholarships.scholarship_college';
 
         parent::__construct($table, $key, $db);
+        $this->setColumnAlias('published', 'state');
     }
 
     public function generateAlias(): string

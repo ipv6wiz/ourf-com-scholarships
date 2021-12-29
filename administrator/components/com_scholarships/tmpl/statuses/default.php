@@ -48,11 +48,11 @@ JS;
         ->addInlineScript($js, [], ['type' => 'module']);
 
     $workflow_state    = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.state', 'com_scholarships.scholarship');
-    $workflow_featured = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.featured', 'com_scholarships.scholarship');
+    // $workflow_featured = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.featured', 'com_scholarships.scholarship');
     // echo '<pre>WF State : '.$workflow_state.'</pre><br>';
 endif;
 ?>
-<form action="<?php echo Route::_('index.php?option=com_scholarships'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_scholarships&view=statuses'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
@@ -61,7 +61,7 @@ endif;
                         <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
                 <?php else : ?>
-                    <table class="table" id="scholarshipList">
+                    <table class="table" id="scholarshipStatusList">
                         <thead>
                         <tr>
                             <td class="w-1 text-center">

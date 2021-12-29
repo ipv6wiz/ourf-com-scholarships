@@ -15,14 +15,14 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
-/**
- * @since __BUMP_VERSION__
- */
-class ScholarshipsModel extends ListModel
+class ScholarshipStatusesModel extends ListModel
 {
+    private string $componentName = 'com_scholarships';
+    private string $tableName = '';
     public function __construct($config = array())
     {
         parent::__construct($config);
+        $this->tableName = $this->getTable()->getTableName();
     }
 
     protected function getListQuery()
@@ -30,19 +30,11 @@ class ScholarshipsModel extends ListModel
         $db = $this->getDbo();
         $query = $db->getQuery(true);
         $query->select([
-            $db->quoteName('a.id', 'id'),
-            $db->quoteName('scholarship_year', 'year'),
-            $db->quoteName('scholarship_recipient', 'recipient'),
-            $db->quoteName('scholarship_college_name', 'college'),
-            $db->quoteName('scholarship_department_name', 'department'),
-            $db->quoteName('scholarship_status_option', 'status'),
-            $db->quoteName('a.state', 'state'),
+            $db->quoteName('id'),
+            $db->quoteName('scholarship_status_option', 'option'),
+            $db->quoteName('state')
         ])
-            ->from($db->quoteName('#__scholarships', 'a'))
-            ->join('LEFT', $db->quoteName('#__scholarship_status', 'b'), $db->quoteName('scholarship_fk_scholarship_status').' = '.$db->quoteName('b.id'))
-            ->join('LEFT', $db->quoteName('#__scholarship_colleges', 'c'), $db->quoteName('scholarship_fk_scholarship_college').' = '.$db->quoteName('c.id'))
-            ->join('LEFT', $db->quoteName('#__scholarship_departments', 'd'), $db->quoteName('scholarship_fk_scholarship_department').' = '.$db->quoteName('d.id'))
-            ->join('LEFT', $db->quoteName('#__categories', 'e'), $db->quoteName('e.id').' =  '.$db->quoteName('a.catid'));
+            -> from($db->quoteName($this->tableName));
         return $query;
     }
 
@@ -134,7 +126,7 @@ class ScholarshipsModel extends ListModel
 
                 foreach ($transitions as $key => $transition)
                 {
-                    if (!$user->authorise('core.execute.transition', 'com_scholarships.transition.' . (int) $transition['value']))
+                    if (!$user->authorise('core.execute.transition', $this->componentName.'.transition.' . (int) $transition['value']))
                     {
                         unset($transitions[$key]);
                     }
@@ -161,6 +153,7 @@ class ScholarshipsModel extends ListModel
      *
      * @return  mixed  An array of data items on success, false on failure.
      *
+     * @throws \Exception
      * @since   4.0.0
      */
     public function getItems(): mixed
@@ -169,7 +162,7 @@ class ScholarshipsModel extends ListModel
 
         foreach ($items as $item)
         {
-            $item->typeAlias = 'com_scholarships.scholarship';
+            $item->typeAlias = $this->getTable()->typeAlias;;
 
             if (isset($item->metadata))
             {
@@ -177,7 +170,6 @@ class ScholarshipsModel extends ListModel
                 $item->metadata = $registry->toArray();
             }
         }
-
         return $items;
     }
 }

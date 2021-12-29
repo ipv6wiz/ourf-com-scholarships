@@ -9,10 +9,7 @@
 
 namespace OURF\Component\Scholarships\Administrator\Controller;
 \defined('_JEXEC') or die;
+
 use Joomla\CMS\MVC\Controller\FormController;
-/**
- * Controller for a single foo
- *
- * @since  __BUMP_VERSION__
- */
-class ScholarshipController extends FormController {}
+
+class ScholarshipDepartmentController extends FormController {}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<form>
+    <fieldset>
+        <field
+                name="id"
+                type="number"
+                label="JGLOBAL_FIELD_ID_LABEL"
+                default="0"
+                class="readonly"
+                readonly="true"
+        />
+        <field
+                name="scholarship_college_name"
+                label="COM_SCHOLARSHIPS_COLLEGE_NAME_LABEL"
+                type="text"
+                size="50"
+                required="true"
+        />
+    </fieldset>
+</form>

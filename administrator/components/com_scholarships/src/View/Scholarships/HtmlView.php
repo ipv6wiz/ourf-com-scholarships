@@ -95,7 +95,7 @@ class HtmlView extends BaseHtmlView
         $this->filterForm    = $this->get('FilterForm');
         $this->activeFilters = $this->get('ActiveFilters');
         $workflow_enabled = ComponentHelper::getParams('com_scholarships')->get('workflow_enabled');
-        echo '<pre>Workflow Enabled : '.$workflow_enabled.'</pre><br>';
+        // echo '<pre>Workflow Enabled : '.$workflow_enabled.'</pre><br>';
         if(!count($this->items) && $this->get('IsEmptyState')) {
             $this->setLayout('emptystate');
         }

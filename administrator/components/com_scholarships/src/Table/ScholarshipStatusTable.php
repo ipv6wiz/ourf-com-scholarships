@@ -21,9 +21,10 @@ class ScholarshipStatusTable extends Table
     {
         $table = '#__scholarship_status';
         $key = 'id';
-        $this->typeAlias = 'com_scholarships.scholarship_status';
+        $this->typeAlias = 'com_scholarships.status';
 
         parent::__construct($table, $key, $db);
+        $this->setColumnAlias('published', 'state');
     }
 
     public function generateAlias(): string
