@@ -13,7 +13,7 @@ namespace OURF\Component\Scholarships\Administrator\Controller;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 
-class ScholarshipDepartmentsController extends AdminController
+class DepartmentsController extends AdminController
 {
     public function __construct($config = array(), MVCFactoryInterface $factory = null, $app = null, $input = null)
     {

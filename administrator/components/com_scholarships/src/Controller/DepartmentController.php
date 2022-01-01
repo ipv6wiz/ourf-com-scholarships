@@ -12,4 +12,4 @@ namespace OURF\Component\Scholarships\Administrator\Controller;
 
 use Joomla\CMS\MVC\Controller\FormController;
 
-class ScholarshipDepartmentController extends FormController {}
+class DepartmentController extends FormController {}

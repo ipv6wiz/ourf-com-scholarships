@@ -13,7 +13,7 @@ namespace OURF\Component\Scholarships\Administrator\Controller;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 
-class ScholarshipStatusesController extends AdminController
+class CollegesController extends AdminController
 {
     public function __construct($config = array(), MVCFactoryInterface $factory = null, $app = null, $input = null)
     {
@@ -31,7 +31,7 @@ class ScholarshipStatusesController extends AdminController
      *
      * @since   1.6
      */
-    public function getModel($name = 'ScholarshipStatus', $prefix = 'Administrator', $config = array('ignore_request' => true))
+    public function getModel($name = 'ScholarshipCollege', $prefix = 'Administrator', $config = array('ignore_request' => true))
     {
         return parent::getModel($name, $prefix, $config);
     }

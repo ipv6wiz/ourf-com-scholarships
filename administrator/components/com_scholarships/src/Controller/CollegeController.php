@@ -10,5 +10,4 @@
 namespace OURF\Component\Scholarships\Administrator\Controller;
 \defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\FormController;
-
-class ScholarshipStatusController extends FormController {}
+class CollegeController extends FormController {}
