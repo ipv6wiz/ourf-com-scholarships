@@ -67,20 +67,8 @@ endif;
                             <td class="w-1 text-center">
                                 <?php echo HTMLHelper::_('grid.checkall'); ?>
                             </td>
-                            <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_YEAR'); ?>
-                            </th>
                             <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_RECIPIENT'); ?>
-                            </th>
-                            <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_COLLEGE'); ?>
-                            </th>
-                            <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_DEPARTMENT'); ?>
-                            </th>
-                            <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_STATUS'); ?>
+                                <?php echo Text::_('COM_SCHOLARSHIPS_STATUS_TABLE_TABLEHEAD_OPTION'); ?>
                             </th>
                             <th scope="col">
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_PUBLISHED'); ?>
@@ -95,36 +83,20 @@ endif;
                         $n = count($this->items);
                         foreach ($this->items as $i => $item) :
                             $item->max_ordering = 0;
-                            $canEdit          = $user->authorise('core.edit',       'com_scholarships.scholarship.' . $item->id);
+                            $canEdit          = $user->authorise('core.edit',       'com_scholarships.status.' . $item->id);
                             $canCheckin       = $user->authorise('core.manage',     'com_checkin') || $item->checked_out == $userId || is_null($item->checked_out);
-                            $canEditOwn       = $user->authorise('core.edit.own',   'com_scholarships.scholarship.' . $item->id) && $item->created_by == $userId;
-                            $canChange        = $user->authorise('core.edit.state', 'com_scholarships.scholarship.' . $item->id) && $canCheckin;
-                            $canEditCat       = $user->authorise('core.edit',       'com_scholarships.category.' . $item->catid);
-                            $canEditOwnCat    = $user->authorise('core.edit.own',   'com_scholarships.category.' . $item->catid) && $item->category_uid == $userId;
-                            $canEditParCat    = $user->authorise('core.edit',       'com_scholarships.category.' . $item->parent_category_id);
-                            $canEditOwnParCat = $user->authorise('core.edit.own',   'com_scholarships.category.' . $item->parent_category_id) && $item->parent_category_uid == $userId;
+                            $canEditOwn       = $user->authorise('core.edit.own',   'com_scholarships.status.' . $item->id) && $item->created_by == $userId;
+                            $canChange        = $user->authorise('core.edit.state', 'com_scholarships.status.' . $item->id) && $canCheckin;
                             ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="text-center">
-                                    <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->recipient); ?>
-                                </td>
-                                <td class="d-none d-md-table-cell">
-                                    <?php echo $item->year; ?>
+                                    <?php echo HTMLHelper::_('grid.id', $i, $item->id, false, 'cid', 'cb', $item->option); ?>
                                 </td>
                                 <th scope="row" class="has-context">
                                     <?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
-                                    <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_scholarships&task=scholarship.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->recipient)); ?>">
-                                        <?php echo $editIcon; ?><?php echo $this->escape($item->recipient); ?></a>
+                                    <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_scholarships&task=status.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->option)); ?>">
+                                        <?php echo $editIcon; ?><?php echo $this->escape($item->option); ?></a>
                                 </th>
-                                <td class="d-none d-md-table-cell">
-                                    <?php echo $item->college; ?>
-                                </td>
-                                <td class="d-none d-md-table-cell">
-                                    <?php echo $item->department; ?>
-                                </td>
-                                <td class="d-none d-md-table-cell">
-                                    <?php echo $item->status; ?>
-                                </td>
                                 <td class="scholarship-status text-center">
                                     <?php
                                     $options = [

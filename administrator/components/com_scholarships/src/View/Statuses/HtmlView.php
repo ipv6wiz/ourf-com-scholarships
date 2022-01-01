@@ -21,7 +21,7 @@ use OURF\Component\Scholarships\Administrator\Extension\ScholarshipsComponent;
 use OURF\Component\Scholarships\Administrator\Helper\ScholarshipHelper;
 
 /**
- * View class for a list of Scholarships.
+ * View class for a list of Scholarship Statuses.
  *
  * @since  1.0.0
  */
@@ -129,7 +129,7 @@ class HtmlView extends BaseHtmlView
 
         if ($canDo->get('core.create') || \count($user->getAuthorisedCategories('com_scholarships', 'core.create')) > 0)
         {
-            $toolbar->addNew('scholarship.add');
+            $toolbar->addNew('scholarship_status.add');
         }
 
         if (!$this->isEmptyState && ($canDo->get('core.edit.state') || \count($this->transitions)))
@@ -206,7 +206,7 @@ class HtmlView extends BaseHtmlView
 
         if (!$this->isEmptyState && $this->state->get('filter.published') == ScholarshipsComponent::CONDITION_TRASHED && $canDo->get('core.delete'))
         {
-            $toolbar->delete('scholarships.delete')
+            $toolbar->delete('scholarships_status.delete')
                 ->text('JTOOLBAR_EMPTY_TRASH')
                 ->message('JGLOBAL_CONFIRM_DELETE')
                 ->listCheck(true);
@@ -217,6 +217,6 @@ class HtmlView extends BaseHtmlView
             $toolbar->preferences('com_scholarships');
         }
 
-        $toolbar->help('Scholarships');
+        $toolbar->help('ScholarshipsStatus');
     }
 }
