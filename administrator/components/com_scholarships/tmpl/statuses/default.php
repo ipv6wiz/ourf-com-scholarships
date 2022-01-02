@@ -47,7 +47,7 @@ JS;
     $wa->useScript('com_workflow.admin-items-workflow-buttons')
         ->addInlineScript($js, [], ['type' => 'module']);
 
-    $workflow_state    = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.state', 'com_scholarships.scholarship');
+    $workflow_state    = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.state', 'com_scholarships.status');
     // $workflow_featured = Factory::getApplication()->bootComponent('com_scholarships')->isFunctionalityUsed('core.featured', 'com_scholarships.scholarship');
     // echo '<pre>WF State : '.$workflow_state.'</pre><br>';
 endif;
@@ -100,7 +100,7 @@ endif;
                                 <td class="scholarship-status text-center">
                                     <?php
                                     $options = [
-                                        'task_prefix' => 'scholarships.',
+                                        'task_prefix' => 'status.',
                                         'disabled' => $workflow_state || !$canChange,
                                         'id' => 'state-' . $item->id
                                     ];
