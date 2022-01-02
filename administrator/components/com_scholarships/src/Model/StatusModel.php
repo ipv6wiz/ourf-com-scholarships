@@ -27,10 +27,11 @@ class StatusModel extends AdminModel implements WorkflowModelInterface
 
     public function __construct($config = array(), MVCFactoryInterface $factory = null, FormFactoryInterface $formFactory = null)
     {
+        $parts = [];
         parent::__construct($config, $factory, $formFactory);
-        $this->typeAlias = $this->getTable()->typeAlias;
-        $this->componentName = preg_split('.', $this->typeAlias)[0];
-        $this->formName = preg_split('.', $this->typeAlias)[1];
+        $this->typeAlias = $this->getTable('Status')->typeAlias;
+        $this->componentName = preg_split('/\./', $this->typeAlias)[0];
+        $this->formName = preg_split('/\./', $this->typeAlias)[1];
         $this->setUpWorkflow($this->typeAlias);
     }
 
@@ -82,6 +83,22 @@ class StatusModel extends AdminModel implements WorkflowModelInterface
             return false;
         }
         return $form;
+    }
+
+    /**
+     * Method to get the data that should be injected in the form.
+     *
+     * @return  mixed  The data for the form.
+     *
+     * @throws \Exception
+     * @since   __BUMP_VERSION__
+     */
+    protected function loadFormData()
+    {
+        $app = Factory::getApplication();
+        $data = $this->getItem();
+        $this->preprocessData($this->typeAlias, $data);
+        return $data;
     }
 
     /**

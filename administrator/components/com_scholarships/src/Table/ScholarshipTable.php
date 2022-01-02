@@ -11,6 +11,7 @@ namespace OURF\Component\Scholarships\Administrator\Table;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 
