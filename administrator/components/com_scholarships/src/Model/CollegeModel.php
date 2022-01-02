@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\Model\WorkflowModelInterface;
 
 \defined('_JEXEC') or die;
 
-class ScholarshipCollegeModel extends AdminModel implements WorkflowModelInterface
+class CollegeModel extends AdminModel implements WorkflowModelInterface
 {
     use WorkflowBehaviorTrait;
 

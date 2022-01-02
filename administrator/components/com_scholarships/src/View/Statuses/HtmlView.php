@@ -7,7 +7,7 @@
  * @license     GPL2
  */
 
-namespace OURF\Component\Scholarships\Administrator\View\Scholarships;
+namespace OURF\Component\Scholarships\Administrator\View\Statuses;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;

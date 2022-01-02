@@ -14,14 +14,14 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 
-class ScholarshipCollegeTable extends Table
+class DepartmentTable extends Table
 {
 
     public function __construct(DatabaseDriver $db)
     {
-        $table = '#__scholarship_colleges';
+        $table = '#__scholarship_departments';
         $key = 'id';
-        $this->typeAlias = 'com_scholarships.scholarship_college';
+        $this->typeAlias = 'com_scholarships.scholarship_department';
 
         parent::__construct($table, $key, $db);
         $this->setColumnAlias('published', 'state');

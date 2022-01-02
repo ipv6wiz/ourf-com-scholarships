@@ -14,7 +14,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 
-class ScholarshipStatusTable extends Table
+class StatusTable extends Table
 {
 
     public function __construct(DatabaseDriver $db)

@@ -15,14 +15,15 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
-class ScholarshipCollegesModel extends ListModel
+class StatusesModel extends ListModel
 {
     private string $componentName = 'com_scholarships';
     private string $tableName = '';
+    private string $tName = 'Status';
     public function __construct($config = array())
     {
         parent::__construct($config);
-        $this->tableName = $this->getTable()->getTableName();
+        $this->tableName = $this->getTable($this->tName)->getTableName();
     }
 
     protected function getListQuery()
@@ -31,7 +32,7 @@ class ScholarshipCollegesModel extends ListModel
         $query = $db->getQuery(true);
         $query->select([
             $db->quoteName('id'),
-            $db->quoteName('scholarship_college_name', 'name'),
+            $db->quoteName('scholarship_status_option', 'option'),
             $db->quoteName('state')
         ])
             -> from($db->quoteName($this->tableName));
@@ -162,7 +163,7 @@ class ScholarshipCollegesModel extends ListModel
 
         foreach ($items as $item)
         {
-            $item->typeAlias = $this->getTable()->typeAlias;;
+            $item->typeAlias = $this->getTable($this->tName)->typeAlias;;
 
             if (isset($item->metadata))
             {

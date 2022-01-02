@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
-class ScholarshipStatusesModel extends ListModel
+class DepartmentsModel extends ListModel
 {
     private string $componentName = 'com_scholarships';
     private string $tableName = '';
@@ -31,7 +31,7 @@ class ScholarshipStatusesModel extends ListModel
         $query = $db->getQuery(true);
         $query->select([
             $db->quoteName('id'),
-            $db->quoteName('scholarship_status_option', 'option'),
+            $db->quoteName('scholarship_department_name', 'name'),
             $db->quoteName('state')
         ])
             -> from($db->quoteName($this->tableName));
