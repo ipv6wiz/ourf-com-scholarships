@@ -89,7 +89,7 @@ class HtmlView extends BaseHtmlView
      */
     public function display($tpl = null): void
     {
-        $this->items = $this->get('Items');
+        $this->items         = $this->get('Items');
         $this->pagination    = $this->get('Pagination');
         $this->state         = $this->get('State');
         $this->filterForm    = $this->get('FilterForm');
@@ -125,11 +125,11 @@ class HtmlView extends BaseHtmlView
         // Get the toolbar object instance
         $toolbar = Toolbar::getInstance('toolbar');
 
-        ToolbarHelper::title(Text::_('COM_SCHOLARSHIPS_MANAGER_SCHOLARSHIPS'), 'address scholarship');
+        ToolbarHelper::title(Text::_('COM_SCHOLARSHIPS_MANAGER_STATUSES'), 'address scholarship');
 
         if ($canDo->get('core.create') || \count($user->getAuthorisedCategories('com_scholarships', 'core.create')) > 0)
         {
-            $toolbar->addNew('scholarship_status.add');
+            $toolbar->addNew('status.add');
         }
 
         if (!$this->isEmptyState && ($canDo->get('core.edit.state') || \count($this->transitions)))
@@ -149,7 +149,7 @@ class HtmlView extends BaseHtmlView
                     ->text('COM_SCHOLARSHIPS_RUN_TRANSITIONS')
                     ->buttonClass('text-center py-2 h3');
 
-                $cmd = "Joomla.submitbutton('scholarships.runTransition');";
+                $cmd = "Joomla.submitbutton('statuses.runTransition');";
                 $messages = "{error: [Joomla.JText._('JLIB_HTML_PLEASE_MAKE_A_SELECTION_FROM_THE_LIST')]}";
                 $alert = 'Joomla.renderMessages(' . $messages . ')';
                 $cmd   = 'if (document.adminForm.boxchecked.value == 0) { ' . $alert . ' } else { ' . $cmd . ' }';
@@ -168,27 +168,27 @@ class HtmlView extends BaseHtmlView
 
             if ($canDo->get('core.edit.state'))
             {
-                $childBar->publish('scholarships.publish')->listCheck(true);
+                $childBar->publish('statuses.publish')->listCheck(true);
 
-                $childBar->unpublish('scholarships.unpublish')->listCheck(true);
+                $childBar->unpublish('statuses.unpublish')->listCheck(true);
 
                 $childBar->standardButton('featured')
                     ->text('JFEATURE')
-                    ->task('scholarships.featured')
+                    ->task('statuses.featured')
                     ->listCheck(true);
 
                 $childBar->standardButton('unfeatured')
                     ->text('JUNFEATURE')
-                    ->task('scholarships.unfeatured')
+                    ->task('statuses.unfeatured')
                     ->listCheck(true);
 
-                $childBar->archive('scholarships.archive')->listCheck(true);
+                $childBar->archive('statuses.archive')->listCheck(true);
 
-                $childBar->checkin('scholarships.checkin')->listCheck(true);
+                $childBar->checkin('statuses.checkin')->listCheck(true);
 
                 if ($this->state->get('filter.published') != ScholarshipsComponent::CONDITION_TRASHED)
                 {
-                    $childBar->trash('scholarships.trash')->listCheck(true);
+                    $childBar->trash('statuses.trash')->listCheck(true);
                 }
             }
 
@@ -206,7 +206,7 @@ class HtmlView extends BaseHtmlView
 
         if (!$this->isEmptyState && $this->state->get('filter.published') == ScholarshipsComponent::CONDITION_TRASHED && $canDo->get('core.delete'))
         {
-            $toolbar->delete('scholarships_status.delete')
+            $toolbar->delete('status.delete')
                 ->text('JTOOLBAR_EMPTY_TRASH')
                 ->message('JGLOBAL_CONFIRM_DELETE')
                 ->listCheck(true);
