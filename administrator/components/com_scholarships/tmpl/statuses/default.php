@@ -100,7 +100,7 @@ endif;
                                 <td class="scholarship-status text-center">
                                     <?php
                                     $options = [
-                                        'task_prefix' => 'status.',
+                                        'task_prefix' => 'statuses.',
                                         'disabled' => $workflow_state || !$canChange,
                                         'id' => 'state-' . $item->id
                                     ];
