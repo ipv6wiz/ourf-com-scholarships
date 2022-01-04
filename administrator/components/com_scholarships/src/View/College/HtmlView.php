@@ -64,8 +64,8 @@ class HtmlView extends BaseHtmlView
     {
         Factory::getApplication()->input->set('hidemainmenu', true);
         $isNew = ($this->item->id == 0);
-        ToolbarHelper::title($isNew ? Text::_('COM_SCHOLARSHIPS_MANAGER_STATUS_NEW') : Text::_('COM_SCHOLARSHIPS_MANAGER_STATUS_EDIT'), 'address status');
-        ToolbarHelper::apply('status.apply');
-        ToolbarHelper::cancel('status.cancel', 'JTOOLBAR_CLOSE');
+        ToolbarHelper::title($isNew ? Text::_('COM_SCHOLARSHIPS_MANAGER_COLLEGE_NEW') : Text::_('COM_SCHOLARSHIPS_MANAGER_COLLEGE_EDIT'), 'address college');
+        ToolbarHelper::apply('college.apply');
+        ToolbarHelper::cancel('college.cancel', 'JTOOLBAR_CLOSE');
     }
 }

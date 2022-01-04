@@ -7,7 +7,7 @@
     <authorUrl>https://MultiMediaCommunications.net</authorUrl>
     <copyright>OURF 2021 All rights reserved</copyright>
     <license>GNU General Public License version 2 or later;</license>
-    <version>1.0.51</version>
+    <version>1.0.52</version>
     <description>COM_SCHOLARSHIPS_XML_DESCRIPTION</description>
     <namespace path="src/">OURF\Component\Scholarships</namespace>
     <scriptfile>script.php</scriptfile>
@@ -35,7 +35,9 @@
         <menu view="scholarships">COM_SCHOLARSHIPS</menu>
         <submenu>
             <menu link="option=com_scholarships">COM_SCHOLARSHIPS</menu>
-            <menu link="option=com_scholarships&amp;view=statuses">COM_SCHOLARSHIP_STATUS</menu>
+            <menu link="option=com_scholarships&amp;view=statuses">COM_SCHOLARSHIP_STATUSES</menu>
+            <menu link="option=com_scholarships&amp;view=colleges">COM_SCHOLARSHIP_COLLEGES</menu>
+            <menu link="option=com_scholarships&amp;view=departments">COM_SCHOLARSHIP_DEPARTMENTS</menu>
         </submenu>
         <files folder="administrator/components/com_scholarships">
             <filename>config.xml</filename>

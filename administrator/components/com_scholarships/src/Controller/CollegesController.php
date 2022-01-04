@@ -31,7 +31,7 @@ class CollegesController extends AdminController
      *
      * @since   1.6
      */
-    public function getModel($name = 'ScholarshipCollege', $prefix = 'Administrator', $config = array('ignore_request' => true))
+    public function getModel($name = 'College', $prefix = 'Administrator', $config = array('ignore_request' => true))
     {
         return parent::getModel($name, $prefix, $config);
     }

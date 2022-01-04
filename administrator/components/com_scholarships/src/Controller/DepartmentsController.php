@@ -31,7 +31,7 @@ class DepartmentsController extends AdminController
      *
      * @since   1.6
      */
-    public function getModel($name = 'ScholarshipDepartment', $prefix = 'Administrator', $config = array('ignore_request' => true))
+    public function getModel($name = 'Department', $prefix = 'Administrator', $config = array('ignore_request' => true))
     {
         return parent::getModel($name, $prefix, $config);
     }
