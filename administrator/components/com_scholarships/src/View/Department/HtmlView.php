@@ -7,7 +7,7 @@
  * @license     GPL2
  */
 
-namespace OURF\Component\Scholarships\Administrator\View\Status;
+namespace OURF\Component\Scholarships\Administrator\View\Department;
 \defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;

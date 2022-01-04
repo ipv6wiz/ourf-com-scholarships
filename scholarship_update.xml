@@ -4,10 +4,10 @@
         <description>OURF - Scholarships Joomla 4.0 Component</description>
         <element>com_scholarships</element>
         <type>component</type>
-        <version>1.0.53</version>
+        <version>1.0.54</version>
         <changelogurl>https://raw.githubusercontent.com/ipv6wiz/ourf-com-scholarships/main/changelog.xml</changelogurl>
         <downloads>
-            <downloadurl type="full" format="zip">https://github.com/ipv6wiz/ourf-com-scholarships/releases/download/v1.0.53/com_scholarships-1.0.53.zip</downloadurl>
+            <downloadurl type="full" format="zip">https://github.com/ipv6wiz/ourf-com-scholarships/releases/download/v1.0.54/com_scholarships-1.0.54.zip</downloadurl>
         </downloads>
         <maintainer>MultiMedia Communications Component Creator</maintainer>
         <maintainerurl>https://www.MultiMediaCommunications.net</maintainerurl>
