@@ -149,7 +149,7 @@ class HtmlView extends BaseHtmlView
                     ->text('COM_SCHOLARSHIPS_RUN_TRANSITIONS')
                     ->buttonClass('text-center py-2 h3');
 
-                $cmd = "Joomla.submitbutton('statuses.runTransition');";
+                $cmd = "Joomla.submitbutton('status.runTransition');";
                 $messages = "{error: [Joomla.JText._('JLIB_HTML_PLEASE_MAKE_A_SELECTION_FROM_THE_LIST')]}";
                 $alert = 'Joomla.renderMessages(' . $messages . ')';
                 $cmd   = 'if (document.adminForm.boxchecked.value == 0) { ' . $alert . ' } else { ' . $cmd . ' }';
@@ -168,27 +168,27 @@ class HtmlView extends BaseHtmlView
 
             if ($canDo->get('core.edit.state'))
             {
-                $childBar->publish('statuses.publish')->listCheck(true);
+                $childBar->publish('status.publish')->listCheck(true);
 
-                $childBar->unpublish('statuses.unpublish')->listCheck(true);
+                $childBar->unpublish('status.unpublish')->listCheck(true);
 
                 $childBar->standardButton('featured')
                     ->text('JFEATURE')
-                    ->task('statuses.featured')
+                    ->task('status.featured')
                     ->listCheck(true);
 
                 $childBar->standardButton('unfeatured')
                     ->text('JUNFEATURE')
-                    ->task('statuses.unfeatured')
+                    ->task('status.unfeatured')
                     ->listCheck(true);
 
-                $childBar->archive('statuses.archive')->listCheck(true);
+                $childBar->archive('status.archive')->listCheck(true);
 
-                $childBar->checkin('statuses.checkin')->listCheck(true);
+                $childBar->checkin('status.checkin')->listCheck(true);
 
                 if ($this->state->get('filter.published') != ScholarshipsComponent::CONDITION_TRASHED)
                 {
-                    $childBar->trash('statuses.trash')->listCheck(true);
+                    $childBar->trash('status.trash')->listCheck(true);
                 }
             }
 
