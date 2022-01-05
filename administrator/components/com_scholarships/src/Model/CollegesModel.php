@@ -163,7 +163,7 @@ class CollegesModel extends ListModel
 
         foreach ($items as $item)
         {
-            $item->typeAlias = $this->getTable()->typeAlias;;
+            $item->typeAlias = $this->getTable($this->tName)->typeAlias;;
 
             if (isset($item->metadata))
             {
