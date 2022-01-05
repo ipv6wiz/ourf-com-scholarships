@@ -94,10 +94,16 @@
                 preview="false"
         />
         <field
+                name="scholarship_sponsor_member"
+                type="hidden"
+                value="0"
+        />
+        <field
             name="scholarship_sponsor_member"
             type="checkbox"
             label="COM_SCHOLARSHIP_FIELD_SPONSOR_MEMBER_LABEL"
-            default="false"
+            checked="0"
+            default="0"
         />
     </fieldset>
 </form>
