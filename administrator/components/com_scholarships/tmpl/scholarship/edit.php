@@ -18,16 +18,12 @@ $wa->useScript('keepalive')
     ->useScript('form.validate');
 $layout  = 'edit';
 $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
+$form = $this->getForm();
 ?>
 <form action="<?php echo Route::_('index.php?option=com_scholarships&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="scholarship-form" class="form-validate">
-    <?php echo $this->getForm()->renderField('scholarship_year'); ?>
-    <?php echo $this->getForm()->renderField('scholarship_recipient'); ?>
-    <?php echo $this->getForm()->renderField('scholarship_fk_scholarship_status'); ?>
-    <?php echo $this->getForm()->renderField('scholarship_fk_scholarship_college'); ?>
-    <?php echo $this->getForm()->renderField('scholarship_fk_scholarship_department'); ?>
-    <?php echo $this->getForm()->renderField('scholarship_abstract_pdf'); ?>
-    <?php echo $this->getForm()->renderField('scholarship_abstract_title'); ?>
-    <?php echo $this->getForm()->renderField('scholarship_profile_pdf'); ?>
+    <?php foreach ($this->form->getFieldset() as $field) : ?>
+        <?php echo $this->form->renderField($field->fieldname); ?>
+    <?php endforeach; ?>
     <input type="hidden" name="task" value="">
     <?php echo HTMLHelper::_('form.token'); ?>
 </form>
