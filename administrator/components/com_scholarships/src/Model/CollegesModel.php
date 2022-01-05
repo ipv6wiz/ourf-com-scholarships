@@ -19,10 +19,11 @@ class CollegesModel extends ListModel
 {
     private string $componentName = 'com_scholarships';
     private string $tableName = '';
+    private string $tName = 'College';
     public function __construct($config = array())
     {
         parent::__construct($config);
-        $this->tableName = $this->getTable()->getTableName();
+        $this->tableName = $this->getTable($this->tName)->getTableName();
     }
 
     protected function getListQuery()
