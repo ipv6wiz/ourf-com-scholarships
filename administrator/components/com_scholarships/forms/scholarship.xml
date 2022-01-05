@@ -93,5 +93,11 @@
                 directory="scholarship/profiles"
                 preview="false"
         />
+        <field
+            name="scholarship_sponsor_member"
+            type="checkbox"
+            label="COM_SCHOLARSHIP_FIELD_SPONSOR_MEMBER_LABEL"
+            default="false"
+        />
     </fieldset>
 </form>
