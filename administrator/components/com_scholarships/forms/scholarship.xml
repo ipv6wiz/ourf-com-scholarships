@@ -94,11 +94,6 @@
                 preview="false"
         />
         <field
-                name="scholarship_sponsor_member"
-                type="hidden"
-                default="0"
-        />
-        <field
             name="scholarship_sponsor_member"
             type="checkbox"
             label="COM_SCHOLARSHIP_FIELD_SPONSOR_MEMBER_LABEL"
