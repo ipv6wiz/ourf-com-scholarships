@@ -57,6 +57,20 @@
             header="Please select the department"
         />
         <field
+            name="scholarship_topic"
+            type="textarea"
+            label="COM_SCHOLARSHIP_FIELD_TOPIC_LABEL"
+            rows="2"
+            default=""
+        />
+        <field
+            name="scholarship_employment"
+            type="textarea"
+            label="COM_SCHOLARSHIP_FIELD_TOPIC_LABEL"
+            rows="2"
+            default=""
+        />
+        <field
                 name="scholarship_abstract_title"
                 type="text"
                 label="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_TITLE_LABEL"
