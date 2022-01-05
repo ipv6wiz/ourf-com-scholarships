@@ -66,7 +66,7 @@
         <field
             name="scholarship_employment"
             type="textarea"
-            label="COM_SCHOLARSHIP_FIELD_TOPIC_LABEL"
+            label="COM_SCHOLARSHIP_FIELD_EMPLOYMENT_LABEL"
             rows="2"
             default=""
         />
