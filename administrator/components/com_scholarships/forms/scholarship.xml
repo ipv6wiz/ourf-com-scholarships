@@ -96,7 +96,7 @@
         <field
                 name="scholarship_sponsor_member"
                 type="hidden"
-                value="0"
+                default="0"
         />
         <field
             name="scholarship_sponsor_member"
