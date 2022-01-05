@@ -31,7 +31,7 @@ class StatusTable extends Table
     public function generateAlias(): string
     {
         if (empty($this->alias)) {
-            $this->alias = $this->name;
+            $this->alias = $this->scholarship_status_option;
         }
         $this->alias = ApplicationHelper::stringURLSafe($this->alias, $this->language);
         if (trim(str_replace('-', '', $this->alias)) == '') {

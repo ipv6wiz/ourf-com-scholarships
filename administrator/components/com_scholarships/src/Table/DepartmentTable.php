@@ -22,7 +22,7 @@ class DepartmentTable extends Table
     {
         $table = '#__scholarship_departments';
         $key = 'id';
-        $this->typeAlias = 'com_scholarships.scholarship_department';
+        $this->typeAlias = 'com_scholarships.department';
 
         parent::__construct($table, $key, $db);
         $this->setColumnAlias('published', 'state');
@@ -31,7 +31,7 @@ class DepartmentTable extends Table
     public function generateAlias(): string
     {
         if (empty($this->alias)) {
-            $this->alias = $this->name;
+            $this->alias = $this->scholarship_department_name;
         }
         $this->alias = ApplicationHelper::stringURLSafe($this->alias, $this->language);
         if (trim(str_replace('-', '', $this->alias)) == '') {

@@ -22,7 +22,7 @@ class CollegeTable extends Table
     {
         $table = '#__scholarship_colleges';
         $key = 'id';
-        $this->typeAlias = 'com_scholarships.scholarship_college';
+        $this->typeAlias = 'com_scholarships.college';
 
         parent::__construct($table, $key, $db);
         $this->setColumnAlias('published', 'state');
@@ -31,7 +31,7 @@ class CollegeTable extends Table
     public function generateAlias(): string
     {
         if (empty($this->alias)) {
-            $this->alias = $this->name;
+            $this->alias = $this->scholarship_college_name;
         }
         $this->alias = ApplicationHelper::stringURLSafe($this->alias, $this->language);
         if (trim(str_replace('-', '', $this->alias)) == '') {
