@@ -129,7 +129,7 @@ class HtmlView extends BaseHtmlView
 
         if ($canDo->get('core.create') || \count($user->getAuthorisedCategories('com_scholarships', 'core.create')) > 0)
         {
-            $toolbar->addNew('statuses.add');
+            $toolbar->addNew('status.add');
         }
 
         if (!$this->isEmptyState && ($canDo->get('core.edit.state') || \count($this->transitions)))
