@@ -67,7 +67,7 @@ class HtmlView extends BaseHtmlView
         $isNew = ($this->item->id == 0);
         ToolbarHelper::title($isNew ? Text::_('COM_SCHOLARSHIPS_MANAGER_SCHOLARSHIP_NEW') : Text::_('COM_SCHOLARSHIPS_MANAGER_SCHOLARSHIP_EDIT'), 'address scholarship');
         ToolbarHelper::apply('scholarship.apply');
-        $toolbarButtons[] = ['save2new', 'scholarship.save2new'];
+        $toolbarButtons[] = ['save', 'scholarship.save'];
         $toolbarButtons[] = ['save2new', 'scholarship.save2new'];
         ToolbarHelper::saveGroup(
             $toolbarButtons,

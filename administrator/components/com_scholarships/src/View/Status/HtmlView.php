@@ -66,6 +66,12 @@ class HtmlView extends BaseHtmlView
         $isNew = ($this->item->id == 0);
         ToolbarHelper::title($isNew ? Text::_('COM_SCHOLARSHIPS_MANAGER_STATUS_NEW') : Text::_('COM_SCHOLARSHIPS_MANAGER_STATUS_EDIT'), 'address status');
         ToolbarHelper::apply('status.apply');
+        $toolbarButtons[] = ['save', 'status.save'];
+        $toolbarButtons[] = ['save2new', 'status.save2new'];
+        ToolbarHelper::saveGroup(
+            $toolbarButtons,
+            'btn-success'
+        );
         ToolbarHelper::cancel('status.cancel', 'JTOOLBAR_CLOSE');
     }
 }
