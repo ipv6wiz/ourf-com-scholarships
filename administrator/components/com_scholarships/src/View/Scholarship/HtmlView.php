@@ -62,10 +62,17 @@ class HtmlView extends BaseHtmlView
      */
     protected function addToolbar()
     {
+        $toolbarButtons = [];
         Factory::getApplication()->input->set('hidemainmenu', true);
         $isNew = ($this->item->id == 0);
         ToolbarHelper::title($isNew ? Text::_('COM_SCHOLARSHIPS_MANAGER_SCHOLARSHIP_NEW') : Text::_('COM_SCHOLARSHIPS_MANAGER_SCHOLARSHIP_EDIT'), 'address scholarship');
         ToolbarHelper::apply('scholarship.apply');
-        ToolbarHelper::cancel('scholarship.cancel', 'JTOOLBAR_CLOSE');
+        $toolbarButtons[] = ['save2new', 'scholarship.save2new'];
+        $toolbarButtons[] = ['save2new', 'scholarship.save2new'];
+        ToolbarHelper::saveGroup(
+            $toolbarButtons,
+            'btn-success'
+        );
+        ToolbarHelper::cancel('scholarship.cancel');
     }
 }
