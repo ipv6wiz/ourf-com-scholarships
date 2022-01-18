@@ -154,7 +154,6 @@ class ScholarshipsModel extends ListModel
             $this->getState(
                 'list.select',
                 [
-                    $db->quoteName(),
                     $db->quoteName('a.id'),
                     $db->quoteName('a.state'),
                     $db->quoteName('a.version'),
