@@ -11,6 +11,7 @@ namespace OURF\Component\Scholarships\Administrator\Model;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
@@ -22,6 +23,20 @@ class ScholarshipsModel extends ListModel
 {
     public function __construct($config = array())
     {
+        if(empty($config['filter_fields'])) {
+            $config['filter_fields'] = array(
+                'id', 'a.id',
+                'year', 'scholarship_year',
+                'recipient', 'scholarship_recipient',
+                'college', 'scholarship_college_name',
+                'department', 'scholarship_department_name',
+                'status', 'scholarship_status_option'
+            );
+            if (Associations::isEnabled())
+            {
+                $config['filter_fields'][] = 'association';
+            }
+        }
         parent::__construct($config);
     }
 

@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Utilities\ArrayHelper;
-
+$app       = Factory::getApplication();
 $user      = Factory::getUser();
 $userId = $user->id;
 $workflow_enabled  = ComponentHelper::getParams('com_scholarships')->get('workflow_enabled');
