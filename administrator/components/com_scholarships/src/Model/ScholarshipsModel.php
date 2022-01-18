@@ -55,7 +55,7 @@ class ScholarshipsModel extends ListModel
     {
         $form = parent::getFilterForm($data, $loadData);
 
-        $params = ComponentHelper::getParams('com_scholarships');
+/*        $params = ComponentHelper::getParams('com_scholarships');
 
         if (!$params->get('workflow_enabled'))
         {
@@ -67,7 +67,7 @@ class ScholarshipsModel extends ListModel
 
             $ordering->addOption('JSTAGE_ASC', ['value' => 'ws.title ASC']);
             $ordering->addOption('JSTAGE_DESC', ['value' => 'ws.title DESC']);
-        }
+        }*/
 
         return $form;
     }
