@@ -32,7 +32,7 @@ class RecipientField extends ListField
             $query = $db->getQuery(true)
                 ->select(
                     [
-                        $db->quoteName('id', 'value'),
+                        $db->quoteName('scholarship_recipient', 'value'),
                         $db->quoteName('scholarship_recipient', 'text'),
                     ]
                 )

@@ -32,8 +32,8 @@ class YearField extends ListField
             $query = $db->getQuery(true)
                 ->select(
                     [
-                        $db->quoteName('distinct scholarship_year', 'value'),
-                        $db->quoteName('distinct scholarship_year', 'text'),
+                        'DISTINCT '.$db->quoteName('scholarship_year', 'value'),
+                        $db->quoteName('scholarship_year', 'text'),
                     ]
                 )
                 ->from($db->quoteName('#__scholarships'))

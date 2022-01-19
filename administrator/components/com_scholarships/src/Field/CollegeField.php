@@ -32,7 +32,7 @@ class CollegeField extends ListField
             $query = $db->getQuery(true)
                 ->select(
                     [
-                        $db->quoteName('id', 'value'),
+                        $db->quoteName('scholarship_college_name', 'value'),
                         $db->quoteName('scholarship_college_name', 'text'),
                     ]
                 )

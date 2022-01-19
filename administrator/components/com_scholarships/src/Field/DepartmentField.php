@@ -32,7 +32,7 @@ class DepartmentField extends ListField
             $query = $db->getQuery(true)
                 ->select(
                     [
-                        $db->quoteName('id', 'value'),
+                        $db->quoteName('scholarship_department_name', 'value'),
                         $db->quoteName('scholarship_department_name', 'text'),
                     ]
                 )
