@@ -124,12 +124,17 @@ class ScholarshipsModel extends ListModel
 
         if ($formSubmited)
         {
-            $authorId = $app->input->post->get('scholarship_recipient');
-            $this->setState('filter.scholarship_recipient', $authorId);
+            $year = $app->input->post->get('scholarship_year');
+            $this->setState('filter.scholarship_year', $year);
 
-            $categoryId = $app->input->post->get('scholarship_college_name');
-            $this->setState('filter.scholarship_department_name', $categoryId);
+            $recipientName = $app->input->post->get('scholarship_recipient');
+            $this->setState('filter.scholarship_recipient', $recipientName);
 
+            $collegeName = $app->input->post->get('scholarship_college_name');
+            $this->setState('filter.scholarship_college_name', $collegeName);
+
+            $departmentName = $app->input->post->get('scholarship_department_name');
+            $this->setState('filter.scholarship_department_name', $departmentName);
         }
 
         // List state information.
@@ -163,7 +168,6 @@ class ScholarshipsModel extends ListModel
                     $db->quoteName('a.created_by'),
                     $db->quoteName('a.created_by_alias'),
                     $db->quoteName('a.modified'),
-                    $db->quoteName('a.featured'),
                     $db->quoteName('a.language'),
                     $db->quoteName('a.catid'),
                     $db->quoteName('a.alias'),
