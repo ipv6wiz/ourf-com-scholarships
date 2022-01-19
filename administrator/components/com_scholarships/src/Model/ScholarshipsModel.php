@@ -227,18 +227,24 @@ class ScholarshipsModel extends ListModel
 
         // Filter by Recipient
         $recipient = $this->getState('filter.scholarship_recipient');
-        $query->where($db->quoteName('scholarship_recipient').' = '.':recipient')
-            ->bind(':recipient', $recipient, ParameterType::STRING);
+        if(!empty($recipient)) {
+            $query->where($db->quoteName('scholarship_recipient').' = '.':recipient')
+                ->bind(':recipient', $recipient, ParameterType::STRING);
+        }
 
         // Filter by College
         $college = $this->getState('filter.scholarship_college_name');
-        $query->where($db->quoteName('scholarship_college_name').' = '.':college')
-            ->bind(':college', $college, ParameterType::STRING);
+        if(!empty($college)) {
+            $query->where($db->quoteName('scholarship_college_name').' = '.':college')
+                ->bind(':college', $college, ParameterType::STRING);
+        }
 
         // Filter by Department
         $department = $this->getState('filter.scholarship_department_name');
-        $query->where($db->quoteName('scholarship_department_name').' = '.':department')
-            ->bind(':department', $department, ParameterType::STRING);
+        if(!empty($department)) {
+            $query->where($db->quoteName('scholarship_department_name').' = '.':department')
+                ->bind(':department', $department, ParameterType::STRING);
+        }
 
         // Filter by search in Recipient, College, Department.
         $search = $this->getState('filter.search');

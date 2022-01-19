@@ -38,7 +38,7 @@
                 label="COM_SCHOLARSHIPS_FILTER_RECIPIENT_LABEL"
                 multiple="false"
                 layout="joomla.form.field.list-fancy-select"
-                hint="COM_SCHOLARSHIPS_FILTER_RECIPIENT_DESC"
+                hint="COM_SCHOLARSHIPS_FILTER_RECIPIENT_HINT"
                 onchange="this.form.submit();"
         >
             <option value="0">JNONE</option>
@@ -50,7 +50,7 @@
                 label="COM_SCHOLARSHIPS_FILTER_COLLEGE_LABEL"
                 multiple="true"
                 layout="joomla.form.field.list-fancy-select"
-                hint="COM_SCHOLARSHIPS_FILTER_COLLEGE_DESC"
+                hint="COM_SCHOLARSHIPS_FILTER_COLLEGE_HINT"
                 onchange="this.form.submit();"
         >
             <option value="0">JNONE</option>
@@ -62,7 +62,7 @@
                 label="COM_SCHOLARSHIPS_FILTER_COLLEGE_LABEL"
                 multiple="true"
                 layout="joomla.form.field.list-fancy-select"
-                hint="COM_SCHOLARSHIPS_FILTER_COLLEGE_DESC"
+                hint="COM_SCHOLARSHIPS_FILTER_COLLEGE_HINT"
                 onchange="this.form.submit();"
         >
             <option value="0">JNONE</option>
