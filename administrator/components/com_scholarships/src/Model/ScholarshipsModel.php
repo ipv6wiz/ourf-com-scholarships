@@ -14,6 +14,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\ParameterType;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
@@ -84,7 +85,7 @@ class ScholarshipsModel extends ListModel
      *
      * @since   1.6
      */
-    protected function populateState($ordering = 'a.year', $direction = 'desc')
+    protected function populateState($ordering = 'scholarship_year', $direction = 'desc')
     {
         $app = Factory::getApplication();
 
@@ -104,9 +105,6 @@ class ScholarshipsModel extends ListModel
 
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
-
-        $featured = $this->getUserStateFromRequest($this->context . '.filter.featured', 'filter_featured', '');
-        $this->setState('filter.featured', $featured);
 
         $published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
         $this->setState('filter.published', $published);
@@ -171,7 +169,6 @@ class ScholarshipsModel extends ListModel
                     $db->quoteName('a.language'),
                     $db->quoteName('a.catid'),
                     $db->quoteName('a.alias'),
-                    $db->quoteName('a.language'),
                     $db->quoteName('scholarship_topic'),
                     $db->quoteName('scholarship_employment'),
                     $db->quoteName('scholarship_abstract_title')
@@ -179,15 +176,15 @@ class ScholarshipsModel extends ListModel
             )
         )
 
-        ->select([
-            $db->quoteName('a.id', 'id'),
-            $db->quoteName('scholarship_year', 'year'),
-            $db->quoteName('scholarship_recipient', 'recipient'),
-            $db->quoteName('scholarship_college_name', 'college'),
-            $db->quoteName('scholarship_department_name', 'department'),
-            $db->quoteName('scholarship_status_option', 'status'),
-            $db->quoteName('a.state', 'state'),
-        ])
+            ->select([
+                $db->quoteName('a.id', 'id'),
+                $db->quoteName('scholarship_year', 'year'),
+                $db->quoteName('scholarship_recipient', 'recipient'),
+                $db->quoteName('scholarship_college_name', 'college'),
+                $db->quoteName('scholarship_department_name', 'department'),
+                $db->quoteName('scholarship_status_option', 'status'),
+                $db->quoteName('a.state', 'state'),
+            ])
             ->from($db->quoteName('#__scholarships', 'a'))
             ->join('LEFT', $db->quoteName('#__scholarship_status', 'b'), $db->quoteName('scholarship_fk_scholarship_status').' = '.$db->quoteName('b.id'))
             ->join('LEFT', $db->quoteName('#__scholarship_colleges', 'c'), $db->quoteName('scholarship_fk_scholarship_college').' = '.$db->quoteName('c.id'))
@@ -195,6 +192,103 @@ class ScholarshipsModel extends ListModel
             ->join('LEFT', $db->quoteName('#__languages', 'l'), $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language'))
             ->join('LEFT', $db->quoteName('#__users', 'ua'), $db->quoteName('ua.id') . ' = ' . $db->quoteName('a.created_by'))
             ->join('LEFT', $db->quoteName('#__categories', 'e'), $db->quoteName('e.id').' =  '.$db->quoteName('a.catid'));
+
+        // Filter by published state
+        $published = (string) $this->getState('filter.published');
+
+        if ($published !== '*')
+        {
+            if (is_numeric($published))
+            {
+                $state = (int) $published;
+                $query->where($db->quoteName('a.state') . ' = :state')
+                    ->bind(':state', $state, ParameterType::INTEGER);
+            }
+//            elseif (!is_numeric($workflowStage))
+//            {
+//                $query->whereIn(
+//                    $db->quoteName('a.state'),
+//                    [
+//                        ContentComponent::CONDITION_PUBLISHED,
+//                        ContentComponent::CONDITION_UNPUBLISHED,
+//                    ]
+//                );
+//            }
+        }
+
+        // Filter by year(s)
+        $year = $this->getState('filter.scholarship_year');
+        if(is_string($year)) {
+            $query->where($db->quoteName('scholarship_year').' = '.':year')
+                ->bind(':year', $year, ParameterType::STRING);
+        } elseif (is_array($year)) {
+            $query->whereIn($db->quoteName('scholarship_year'), $year);
+        }
+
+        // Filter by Recipient
+        $recipient = $this->getState('filter.scholarship_recipient');
+        $query->where($db->quoteName('scholarship_recipient').' = '.':recipient')
+            ->bind(':recipient', $recipient, ParameterType::STRING);
+
+        // Filter by College
+        $college = $this->getState('filter.scholarship_college_name');
+        $query->where($db->quoteName('scholarship_college_name').' = '.':college')
+            ->bind(':college', $college, ParameterType::STRING);
+
+        // Filter by Department
+        $department = $this->getState('filter.scholarship_department_name');
+        $query->where($db->quoteName('scholarship_department_name').' = '.':department')
+            ->bind(':department', $department, ParameterType::STRING);
+
+        // Filter by search in Recipient, College, Department.
+        $search = $this->getState('filter.search');
+
+        if (!empty($search))
+        {
+            if (stripos($search, 'id:') === 0)
+            {
+                $search = (int) substr($search, 3);
+                $query->where($db->quoteName('a.id') . ' = :search')
+                    ->bind(':search', $search, ParameterType::INTEGER);
+            }
+            elseif (stripos($search, 'recipient:') === 0)
+            {
+                $search = '%' . substr($search, strlen('recipient:')) . '%';
+                $query->where('(' . $db->quoteName('scholarship_recipient') . ' LIKE :search1 ')
+                    ->bind(':search1', $search);
+            }
+            elseif (stripos($search, 'college:') === 0)
+            {
+                $search = '%' . substr($search, strlen('college:')) . '%';
+                $query->where('(' . $db->quoteName('scholarship_college_name') . ' LIKE :search1')
+                    ->bind(':search1', $search);
+            }
+            elseif (stripos($search, 'department:') === 0)
+            {
+                $search = '%' . substr($search, strlen('department:')) . '%';
+                $query->where('(' . $db->quoteName('scholarship_department_name') . ' LIKE :search1')
+                    ->bind(':search1', $search);
+            }
+            else
+            {
+                $search = '%' . str_replace(' ', '%', trim($search)) . '%';
+                $query->where(
+                    '(' . $db->quoteName('scholarship_recipient') . ' LIKE :search1 OR ' . $db->quoteName('scholarship_college_name') . ' LIKE :search2'
+                    . ' OR ' . $db->quoteName('scholarship_department_name') . ' LIKE :search3)'
+                )
+                    ->bind([':search1', ':search2', ':search3'], $search);
+            }
+        }
+
+        // Add the list ordering clause.
+        $orderCol  = $this->state->get('list.ordering', 'scholarship_year');
+        $orderDirn = $this->state->get('list.direction', 'DESC');
+
+        $ordering = $db->escape($orderCol) . ' ' . $db->escape($orderDirn);
+
+
+        $query->order($ordering);
+
         return $query;
     }
 
