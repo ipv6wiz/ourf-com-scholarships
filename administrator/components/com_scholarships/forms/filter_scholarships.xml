@@ -21,6 +21,7 @@
         </field>
 
         <field
+                addfieldprefix="OURF\Component\Scholarships\Field"
                 name="scholarship_year"
                 type="year"
                 label="COM_SCHOLARSHIPS_FILTER_YEAR_LABEL"
