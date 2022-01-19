@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form>
-    <fields name="filter">
+<form addfieldprefix="OURF\Component\Scholarships\Field">
+    <fields name="filter" >
         <field
                 name="search"
                 type="text"
@@ -26,7 +26,7 @@
                 label="COM_SCHOLARSHIPS_FILTER_YEAR_LABEL"
                 multiple="true"
                 layout="joomla.form.field.list-fancy-select"
-                hint="COM_SCHOLARSHIPS_FILTER_YEAR_DESC"
+                hint="COM_SCHOLARSHIPS_FILTER_YEAR_HINT"
                 onchange="this.form.submit();"
         >
             <option value="0">JNONE</option>
@@ -59,10 +59,10 @@
         <field
                 name="scholarship_department_name"
                 type="department"
-                label="COM_SCHOLARSHIPS_FILTER_COLLEGE_LABEL"
+                label="COM_SCHOLARSHIPS_FILTER_DEPARTMENT_LABEL"
                 multiple="true"
                 layout="joomla.form.field.list-fancy-select"
-                hint="COM_SCHOLARSHIPS_FILTER_COLLEGE_HINT"
+                hint="COM_SCHOLARSHIPS_FILTER_DEPARTMENT_HINT"
                 onchange="this.form.submit();"
         >
             <option value="0">JNONE</option>
