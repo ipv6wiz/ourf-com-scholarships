@@ -235,15 +235,23 @@ class ScholarshipsModel extends ListModel
         // Filter by College
         $college = $this->getState('filter.scholarship_college_name');
         if(!empty($college)) {
-            $query->where($db->quoteName('scholarship_college_name').' = '.':college')
-                ->bind(':college', $college, ParameterType::STRING);
+            if(is_string($college)) {
+                $query->where($db->quoteName('scholarship_college_name').' = '.':college')
+                    ->bind(':college', $college, ParameterType::STRING);
+            } elseif (is_array($college)) {
+                $query->whereIn($db->quoteName('scholarship_college_name'), $college);
+            }
         }
 
         // Filter by Department
         $department = $this->getState('filter.scholarship_department_name');
         if(!empty($department)) {
-            $query->where($db->quoteName('scholarship_department_name').' = '.':department')
-                ->bind(':department', $department, ParameterType::STRING);
+            if(is_string($department)) {
+                $query->where($db->quoteName('scholarship_department_name').' = '.':department')
+                    ->bind(':department', $department, ParameterType::STRING);
+            } elseif (is_array($department)) {
+                $query->whereIn($db->quoteName('scholarship_department_name'), $department);
+            }
         }
 
         // Filter by search in Recipient, College, Department.
