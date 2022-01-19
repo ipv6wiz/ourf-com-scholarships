@@ -117,6 +117,7 @@ class ScholarshipsModel extends ListModel
         $formSubmited = $app->input->post->get('form_submited');
 
         // Gets the value of a user state variable and sets it in the session
+        $this->getUserStateFromRequest($this->context . '.filter.scholarship_year', 'filter_scholarship_year');
         $this->getUserStateFromRequest($this->context . '.filter.scholarship_recipient', 'filter_scholarship_recipient');
         $this->getUserStateFromRequest($this->context . '.filter.scholarship_college_name', 'filter_scholarship_college_name');
         $this->getUserStateFromRequest($this->context . '.filter.scholarship_department_name', 'filter_scholarship_department_name', '');
