@@ -7,7 +7,7 @@
  * @license     GPL2
  */
 
-namespace OURF\Component\Scholarships\Field;
+namespace OURF\Component\Scholarships\Administrator\Field;
 \defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Factory;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form addfieldprefix="OURF\Component\Scholarships\Field">
+<form addfieldprefix="OURF\Component\Scholarships\Administrator\Field">
     <fields name="filter" >
         <field
                 name="search"
@@ -37,12 +37,11 @@
                 name="scholarship_recipient"
                 type="recipient"
                 label="COM_SCHOLARSHIPS_FILTER_RECIPIENT_LABEL"
-                multiple="false"
                 layout="joomla.form.field.list-fancy-select"
                 hint="COM_SCHOLARSHIPS_FILTER_RECIPIENT_HINT"
                 onchange="this.form.submit();"
         >
-            <option value="0">JNONE</option>
+            <option value="0">COM_SCHOLARSHIPS_FILTER_RECIPIENT_HINT</option>
         </field>
 
         <field
