@@ -17,9 +17,15 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Utilities\ArrayHelper;
+
+HTMLHelper::_('behavior.multiselect');
+
 $app       = Factory::getApplication();
 $user      = Factory::getUser();
 $userId = $user->id;
+$listOrder = $this->escape($this->state->get('list.ordering'));
+$listDirn  = $this->escape($this->state->get('list.direction'));
+$saveOrder = $listOrder == 'scholarship_year';
 $workflow_enabled  = ComponentHelper::getParams('com_scholarships')->get('workflow_enabled');
 $workflow_state    = false;
 $workflow_featured = false;
@@ -73,16 +79,16 @@ endif;
                                 <?php echo HTMLHelper::_('grid.checkall'); ?>
                             </td>
                             <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_YEAR'); ?>
+                                <?php echo HTMLHelper::_('searchtools-sort','COM_SCHOLARSHIPS_TABLE_TABLEHEAD_YEAR','scholarship_year', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_RECIPIENT'); ?>
+                                <?php echo HTMLHelper::_('searchtools-sort','COM_SCHOLARSHIPS_TABLE_TABLEHEAD_RECIPIENT', 'scholarship_recipient', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_COLLEGE'); ?>
+                                <?php echo HTMLHelper::_('searchtools-sort','COM_SCHOLARSHIPS_TABLE_TABLEHEAD_COLLEGE', 'scholarship_college_name', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_DEPARTMENT'); ?>
+                                <?php echo HTMLHelper::_('searchtools-sort','COM_SCHOLARSHIPS_TABLE_TABLEHEAD_DEPARTMENT', 'scholarship_department_name', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col">
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_STATUS'); ?>
@@ -91,7 +97,7 @@ endif;
                                 <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_PUBLISHED'); ?>
                             </th>
                             <th scope="col">
-                                <?php echo Text::_('COM_SCHOLARSHIPS_TABLE_TABLEHEAD_ID'); ?>
+                                <?php echo HTMLHelper::_('searchtools-sort','COM_SCHOLARSHIPS_TABLE_TABLEHEAD_ID','a.id', $listDirn, $listOrder); ?>
                             </th>
                         </tr>
                         </thead>

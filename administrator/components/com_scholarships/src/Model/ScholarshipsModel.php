@@ -222,7 +222,7 @@ class ScholarshipsModel extends ListModel
             $query->where($db->quoteName('scholarship_year').' = '.':year')
                 ->bind(':year', $year, ParameterType::STRING);
         } elseif (is_array($year)) {
-            $query->whereIn($db->quoteName('scholarship_year'), $year);
+            $query->whereIn($db->quoteName('scholarship_year'), $year, ParameterType::STRING);
         }
 
         // Filter by Recipient
@@ -239,7 +239,7 @@ class ScholarshipsModel extends ListModel
                 $query->where($db->quoteName('scholarship_college_name').' = '.':college')
                     ->bind(':college', $college, ParameterType::STRING);
             } elseif (is_array($college)) {
-                $query->whereIn($db->quoteName('scholarship_college_name'), $college);
+                $query->whereIn($db->quoteName('scholarship_college_name'), $college, ParameterType::STRING);
             }
         }
 
@@ -250,7 +250,7 @@ class ScholarshipsModel extends ListModel
                 $query->where($db->quoteName('scholarship_department_name').' = '.':department')
                     ->bind(':department', $department, ParameterType::STRING);
             } elseif (is_array($department)) {
-                $query->whereIn($db->quoteName('scholarship_department_name'), $department);
+                $query->whereIn($db->quoteName('scholarship_department_name'), $department, ParameterType::STRING);
             }
         }
 
