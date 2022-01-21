@@ -28,6 +28,22 @@ use Joomla\Utilities\ArrayHelper;
 
 class ScholarshipsModel extends ListModel
 {
+    protected $rowColors= [
+        'table-primary',
+        'table-secondary',
+        'table-success',
+        'table-danger',
+        'table-warning',
+        'table-info',
+    ];
+
+    protected $colHeadings = [
+        'Year',
+        'Recipient',
+        'College',
+        'Department',
+        'Status'
+    ];
     public function __construct($config = array())
     {
         $this->app = Factory::getApplication();
@@ -145,8 +161,8 @@ class ScholarshipsModel extends ListModel
                     $db->quoteName('a.language'),
                     $db->quoteName('a.catid'),
                     $db->quoteName('a.alias'),
-                    $db->quoteName('scholarship_topic'),
-                    $db->quoteName('scholarship_employment'),
+                    $db->quoteName('scholarship_topic', 'topic'),
+                    $db->quoteName('scholarship_employment', 'employment'),
                     $db->quoteName('scholarship_abstract_title')
                 ]
             )
@@ -402,18 +418,31 @@ class ScholarshipsModel extends ListModel
     public function getItems(): mixed
     {
         $items = parent::getItems();
-
+        $year = 0;
+        $index = 0; // color table index
         foreach ($items as $item)
         {
             $item->typeAlias = 'com_scholarships.scholarship';
 
+            if($year === 0) {
+                $year = $item->scholarship_year;
+            } elseif ($year !== $item->scholarship_year) {
+                $index = $this->bumpColor($index);
+            }
+            $item->color = $this->rowColors[$index];
             if (isset($item->metadata))
             {
                 $registry = new Registry($item->metadata);
                 $item->metadata = $registry->toArray();
             }
         }
-
-        return $items;
+        $itemsObj = new \stdClass();
+        $itemsObj['items'] = $items;
+        $itemsObj['colors'] = $this->rowColors;
+        $itemsObj['colHeadings'] = $this->colHeadings;
+        return $itemsObj;
+    }
+    private function bumpColor($index) {
+        return ($index < count($this->rowColors) - 1) ? $index + 1 : 0;
     }
 }
