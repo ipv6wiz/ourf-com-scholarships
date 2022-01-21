@@ -28,98 +28,108 @@ use Joomla\Utilities\ArrayHelper;
 
 class ScholarshipsModel extends ListModel
 {
-    public function __construct($config = array(), MVCFactoryInterface $factory = null)
+    public function __construct($config = array())
     {
         $this->app = Factory::getApplication();
-        parent::__construct($config, $factory);
+        if(empty($config['filter_fields'])) {
+            $config['filter_fields'] = array(
+                'id', 'a.id',
+                'year', 'scholarship_year',
+                'recipient', 'scholarship_recipient',
+                'college', 'scholarship_college_name',
+                'department', 'scholarship_department_name',
+                'status', 'scholarship_status_option'
+            );
+            if (Associations::isEnabled())
+            {
+                $config['filter_fields'][] = 'association';
+            }
+        }
+        parent::__construct($config);
     }
 
-    protected function populateState($ordering = 'ordering', $direction = 'ASC')
+
+    /**
+     * Method to auto-populate the model state.
+     *
+     * Note. Calling getState in this method will result in recursion.
+     *
+     * @param   string  $ordering   An optional ordering field.
+     * @param   string  $direction  An optional direction (asc|desc).
+     *
+     * @return  void
+     *
+     * @since   1.6
+     */
+    protected function populateState($ordering = 'scholarship_year', $direction = 'desc')
     {
         $app = Factory::getApplication();
 
-        // List state information
-        $value = $app->input->get('limit', $app->get('list_limit', 0), 'uint');
-        $this->setState('list.limit', $value);
+        $forcedLanguage = $app->input->get('forcedLanguage', '', 'cmd');
 
-        $value = $app->input->get('limitstart', 0, 'uint');
-        $this->setState('list.start', $value);
-
-        $value = $app->input->get('filter_tag', 0, 'uint');
-        $this->setState('filter.tag', $value);
-
-        $orderCol = $app->input->get('filter_order', 'a.ordering');
-
-        if (!in_array($orderCol, $this->filter_fields))
+        // Adjust the context to support modal layouts.
+        if ($layout = $app->input->get('layout'))
         {
-            $orderCol = 'a.ordering';
+            $this->context .= '.' . $layout;
         }
 
-        $this->setState('list.ordering', $orderCol);
-
-        $listOrder = $app->input->get('filter_order_Dir', 'ASC');
-
-        if (!in_array(strtoupper($listOrder), array('ASC', 'DESC', '')))
+        // Adjust the context to support forced languages.
+        if ($forcedLanguage)
         {
-            $listOrder = 'ASC';
+            $this->context .= '.' . $forcedLanguage;
         }
 
-        $this->setState('list.direction', $listOrder);
+        $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+        $this->setState('filter.search', $search);
 
-        $params = $app->getParams();
-        $this->setState('params', $params);
-        $user = Factory::getUser();
+        $published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
+        $this->setState('filter.published', $published);
 
-        if ((!$user->authorise('core.edit.state', 'com_content')) && (!$user->authorise('core.edit', 'com_content')))
+        $language = $this->getUserStateFromRequest($this->context . '.filter.language', 'filter_language', '');
+        $this->setState('filter.language', $language);
+
+        $formSubmited = $app->input->post->get('form_submited');
+
+        // Gets the value of a user state variable and sets it in the session
+        $this->getUserStateFromRequest($this->context . '.filter.scholarship_year', 'filter_scholarship_year');
+        $this->getUserStateFromRequest($this->context . '.filter.scholarship_recipient', 'filter_scholarship_recipient');
+        $this->getUserStateFromRequest($this->context . '.filter.scholarship_college_name', 'filter_scholarship_college_name');
+        $this->getUserStateFromRequest($this->context . '.filter.scholarship_department_name', 'filter_scholarship_department_name', '');
+
+        if ($formSubmited)
         {
-            // Filter on published for those who do not have edit or edit.state rights.
-            $this->setState('filter.published', ContentComponent::CONDITION_PUBLISHED);
+            $year = $app->input->post->get('scholarship_year');
+            $this->setState('filter.scholarship_year', $year);
+
+            $recipientName = $app->input->post->get('scholarship_recipient');
+            $this->setState('filter.scholarship_recipient', $recipientName);
+
+            $collegeName = $app->input->post->get('scholarship_college_name');
+            $this->setState('filter.scholarship_college_name', $collegeName);
+
+            $departmentName = $app->input->post->get('scholarship_department_name');
+            $this->setState('filter.scholarship_department_name', $departmentName);
         }
 
-        $this->setState('filter.language', Multilanguage::isEnabled());
+        // List state information.
+        parent::populateState($ordering, $direction);
 
-        // Process show_noauth parameter
-        if ((!$params->get('show_noauth')) || (!ComponentHelper::getParams('com_content')->get('show_noauth')))
+        // Force a language
+        if (!empty($forcedLanguage))
         {
-            $this->setState('filter.access', true);
+            $this->setState('filter.language', $forcedLanguage);
+            $this->setState('filter.forcedLanguage', $forcedLanguage);
         }
-        else
-        {
-            $this->setState('filter.access', false);
-        }
-
-        $this->setState('layout', $app->input->getString('layout'));
-    }
-
-    protected function getStoreId($id = '')
-    {
-        // Compile the store id.
-        $id .= ':' . serialize($this->getState('filter.published'));
-        $id .= ':' . $this->getState('filter.access');
-        $id .= ':' . $this->getState('filter.featured');
-        $id .= ':' . serialize($this->getState('filter.article_id'));
-        $id .= ':' . $this->getState('filter.article_id.include');
-        $id .= ':' . serialize($this->getState('filter.category_id'));
-        $id .= ':' . $this->getState('filter.category_id.include');
-        $id .= ':' . serialize($this->getState('filter.author_id'));
-        $id .= ':' . $this->getState('filter.author_id.include');
-        $id .= ':' . serialize($this->getState('filter.author_alias'));
-        $id .= ':' . $this->getState('filter.author_alias.include');
-        $id .= ':' . $this->getState('filter.date_filtering');
-        $id .= ':' . $this->getState('filter.date_field');
-        $id .= ':' . $this->getState('filter.start_date_range');
-        $id .= ':' . $this->getState('filter.end_date_range');
-        $id .= ':' . $this->getState('filter.relative_date');
-        $id .= ':' . serialize($this->getState('filter.tag'));
-
-        return parent::getStoreId($id);
     }
 
     protected function getListQuery()
     {
-        $user = $this->app->getIdentity();
         $db = $this->getDbo();
         $query = $db->getQuery(true);
+//        $user  = Factory::getUser();
+        $user = $this->app->getIdentity();
+        $params = ComponentHelper::getParams('com_scholarships');
+
         $query->select(
             $this->getState(
                 'list.select',
@@ -200,7 +210,6 @@ class ScholarshipsModel extends ListModel
 
         // Filter by College
         $college = $this->getState('filter.scholarship_college_name');
-        echo '<pre>College: '.print_r($college,true).'</pre><br>';
         if(!empty($college)) {
             if(is_string($college)) {
                 $query->where($db->quoteName('scholarship_college_name').' = '.':college')
@@ -262,7 +271,7 @@ class ScholarshipsModel extends ListModel
         }
 
         // Add the list ordering clause.
-        $orderCol  = $this->state->get('list.ordering', 'scholarship_year');
+        $orderCol  = $this->state->get('list.scholarship_year', 'scholarship_year');
         $orderDirn = $this->state->get('list.direction', 'DESC');
 
         $ordering = $db->escape($orderCol) . ' ' . $db->escape($orderDirn);
@@ -273,6 +282,123 @@ class ScholarshipsModel extends ListModel
         return $query;
     }
 
+    /**
+     * Method to get all transitions at once for all articles
+     *
+     * @return  array|boolean
+     *
+     * @since   4.0.0
+     */
+    public function getTransitions(): bool|array
+    {
+        // Get a storage key.
+        $store = $this->getStoreId('getTransitions');
+
+        // Try to load the data from internal storage.
+        if (isset($this->cache[$store]))
+        {
+            return $this->cache[$store];
+        }
+
+        $db   = $this->getDbo();
+        $user = Factory::getUser();
+
+        $items = $this->getItems();
+
+        if ($items === false)
+        {
+            return false;
+        }
+
+        $stage_ids = ArrayHelper::getColumn($items, 'stage_id');
+        $stage_ids = ArrayHelper::toInteger($stage_ids);
+        $stage_ids = array_values(array_unique(array_filter($stage_ids)));
+
+        $workflow_ids = ArrayHelper::getColumn($items, 'workflow_id');
+        $workflow_ids = ArrayHelper::toInteger($workflow_ids);
+        $workflow_ids = array_values(array_unique(array_filter($workflow_ids)));
+
+        $this->cache[$store] = array();
+
+        try
+        {
+            if (count($stage_ids) || count($workflow_ids))
+            {
+                Factory::getLanguage()->load('com_workflow', JPATH_ADMINISTRATOR);
+
+                $query = $db->getQuery(true);
+
+                $query	->select(
+                    [
+                        $db->quoteName('t.id', 'value'),
+                        $db->quoteName('t.title', 'text'),
+                        $db->quoteName('t.from_stage_id'),
+                        $db->quoteName('t.to_stage_id'),
+                        $db->quoteName('s.id', 'stage_id'),
+                        $db->quoteName('s.title', 'stage_title'),
+                        $db->quoteName('t.workflow_id'),
+                    ]
+                )
+                    ->from($db->quoteName('#__workflow_transitions', 't'))
+                    ->innerJoin(
+                        $db->quoteName('#__workflow_stages', 's'),
+                        $db->quoteName('t.to_stage_id') . ' = ' . $db->quoteName('s.id')
+                    )
+                    ->where(
+                        [
+                            $db->quoteName('t.published') . ' = 1',
+                            $db->quoteName('s.published') . ' = 1',
+                        ]
+                    )
+                    ->order($db->quoteName('t.ordering'));
+
+                $where = [];
+
+                if (count($stage_ids))
+                {
+                    $where[] = $db->quoteName('t.from_stage_id') . ' IN (' . implode(',', $query->bindArray($stage_ids)) . ')';
+                }
+
+                if (count($workflow_ids))
+                {
+                    $where[] = '(' . $db->quoteName('t.from_stage_id') . ' = -1 AND ' . $db->quoteName('t.workflow_id') . ' IN (' . implode(',', $query->bindArray($workflow_ids)) . '))';
+                }
+
+                $query->where('((' . implode(') OR (', $where) . '))');
+
+                $transitions = $db->setQuery($query)->loadAssocList();
+
+                foreach ($transitions as $key => $transition)
+                {
+                    if (!$user->authorise('core.execute.transition', 'com_scholarships.transition.' . (int) $transition['value']))
+                    {
+                        unset($transitions[$key]);
+                    }
+
+                    $transitions[$key]['text'] = Text::_($transition['text']);
+                }
+
+                $this->cache[$store] = $transitions;
+            }
+        }
+        catch (\RuntimeException $e)
+        {
+            $this->setError($e->getMessage());
+
+            return false;
+        }
+
+        return $this->cache[$store];
+    }
+
+    /**
+     * Method to get a list of articles.
+     * Overridden to add item type alias.
+     *
+     * @return  mixed  An array of data items on success, false on failure.
+     *
+     * @since   4.0.0
+     */
     public function getItems(): mixed
     {
         $items = parent::getItems();

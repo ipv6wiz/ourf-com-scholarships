@@ -35,6 +35,11 @@ class DisplayController extends BaseController
         parent::__construct($config, $factory, $app, $input);
     }
 
+    public function getModel($name = 'Scholarships', $prefix = 'Site', $config = array('ignore_request' => true)): \Joomla\CMS\MVC\Model\BaseDatabaseModel|bool
+    {
+        return parent::getModel($name, $prefix, $config);
+    }
+
     /**
      * Method to display a view.
      *
