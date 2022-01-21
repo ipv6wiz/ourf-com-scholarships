@@ -23,7 +23,7 @@
     </thead>
     <tbody>
     <?php foreach ($this->items as $row): ?>
-    <tr class="<?php $row->color; ?>">
+    <tr class="<?php echo $row->color; ?>">
         <?php foreach($row as $col=>$value): ?>
             <?php if(!in_array($col, $this->excludeColumns)): ?>
                 <td>

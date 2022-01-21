@@ -436,7 +436,7 @@ class ScholarshipsModel extends ListModel
                 $item->metadata = $registry->toArray();
             }
         }
-        $itemsObj = new \stdClass();
+        $itemsObj = array();
         $itemsObj['items'] = $items;
         $itemsObj['colors'] = $this->rowColors;
         $itemsObj['colHeadings'] = $this->colHeadings;

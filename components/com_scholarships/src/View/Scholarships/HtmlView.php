@@ -29,7 +29,8 @@ class HtmlView extends BaseHtmlView
         'catid',
         'alias',
         'typeAlias',
-        'scholarship_abstract_title'
+        'scholarship_abstract_title',
+        'color'
     );
 
     public function display($tpl = null): void
