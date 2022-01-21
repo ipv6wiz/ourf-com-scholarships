@@ -7,7 +7,7 @@
  * @license     GPL2
  */
 
-namespace Joomla\Component\Scholarships\Site\Model;
+namespace OURF\Component\Scholarships\Site\Model;
 
 \defined('_JEXEC') or die;
 
