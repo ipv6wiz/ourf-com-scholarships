@@ -24,12 +24,15 @@ class HtmlView extends BaseHtmlView
         'ordering',
         'created',
         'created_by',
+        'created_by_alias',
         'modified',
         'language',
         'catid',
         'alias',
-        'typeAlias',
+        'topic',
+        'employment',
         'scholarship_abstract_title',
+        'typeAlias',
         'color'
     );
 

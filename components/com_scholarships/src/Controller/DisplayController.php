@@ -18,6 +18,7 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
  */
 class DisplayController extends BaseController
 {
+    protected $default_view = 'scholarships';
     /**
      * Constructor.
      *
