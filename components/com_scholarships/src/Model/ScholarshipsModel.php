@@ -427,12 +427,12 @@ class ScholarshipsModel extends ListModel
         {
             $item->typeAlias = 'com_scholarships.scholarship';
 
-            if($year === 0) {
-                $year = $item->scholarship_year;
-            } elseif ($year !== $item->scholarship_year) {
-                $index = $this->bumpColor($index);
-            }
-            $item->color = $this->rowColors[$index];
+//            if($year === 0) {
+//                $year = $item->scholarship_year;
+//            } elseif ($year !== $item->scholarship_year) {
+//                $index = $this->bumpColor($index);
+//            }
+//            $item->color = $this->rowColors[$index];
             if (isset($item->metadata))
             {
                 $registry = new Registry($item->metadata);
