@@ -138,7 +138,61 @@ VALUES ('Still Studying'),
        ('Graduated'),
        ('Research TBC');
 
+DROP TABLE IF EXISTS `#__scholarship_year_colors`;
+CREATE TABLE `#__scholarship_year_colors` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `fk_colors` INT NOT NULL ,
+    `year` VARCHAR(4) NOT NULL,
+    PRIMARY KEY (`id`),
+    constraint scholarships_year_colors_id_uindex
+        unique (id),
+    constraint scholarships_year_colors_year_uindex
+        unique (year)
+)
+    engine =MyISAM
+    auto_increment =0
+    default char set =utf8;
 
+insert into `#__scholarship_year_colors` (id, fk_colors, year)
+values  (1, 2, '2006'),
+    (2, 3, '2007'),
+    (3, 4, '2008'),
+    (4, 5, '2009'),
+    (5, 6, '2010'),
+    (6, 7, '2011'),
+    (7, 1, '2012'),
+    (8, 2, '2013'),
+    (9, 3, '2014'),
+    (10, 4, '2015'),
+    (11, 5, '2016'),
+    (12, 6, '2017'),
+    (13, 7, '2018'),
+    (14, 1, '2019'),
+    (15, 2, '2020'),
+    (16, 3, '2021');
+
+DROP TABLE IF EXISTS `#__scholarship_colors`;
+CREATE TABLE `#__scholarship_colors` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `color` varchar(7) not null,
+    `class` varchar(50) not null,
+    `name` varchar(50) not null,
+    PRIMARY KEY (`id`),
+    constraint dev4_scholarship_colors_id_uindex
+        unique (id)
+)
+    engine =MyISAM
+    auto_increment =0
+    default char set =utf8;
+
+insert into `#__scholarship_colors` (id, color, class, name)
+values  (1, '#cfe2ff', 'table-primary', 'Primary'),
+    (2, '#e2e3e5', 'table-secondary', 'Secondary'),
+    (3, '#d1e7dd', 'table-success', 'Success'),
+    (4, '#f8d7da', 'table-danger', 'Danger'),
+    (5, '#fff3cd', 'table-warning', 'Warning'),
+    (6, '#cff4fc', 'table-info', 'Info'),
+    (7, '#f8f9fa', 'table-light', 'Light');
 
 insert into `#__scholarships` (id, scholarship_year, scholarship_recipient, scholarship_fk_scholarship_status, scholarship_fk_scholarship_college, scholarship_fk_scholarship_department, scholarship_topic, scholarship_employment, scholarship_abstract_pdf, scholarship_abstract_title, scholarship_profile_pdf, scholarship_sponsor_member, state, ordering, created, language, created_by, created_by_alias, modified, modified_by, version, catid, alias)
 values  (1, '2006', 'Syarifah Lia Andriati', 3, 3, 3, null, null, null, null, null, 0, 1, 10, '2022-01-17 19:10:47', '', 1, '', null, 1, 1, 1, ''),
