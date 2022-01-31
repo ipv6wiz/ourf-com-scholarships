@@ -7,7 +7,7 @@
     <authorUrl>https://MultiMediaCommunications.net</authorUrl>
     <copyright>OURF 2021 All rights reserved</copyright>
     <license>GNU General Public License version 2 or later;</license>
-    <version>1.1.8</version>
+    <version>1.1.9</version>
     <description>COM_SCHOLARSHIPS_XML_DESCRIPTION</description>
     <namespace path="src/">OURF\Component\Scholarships</namespace>
     <scriptfile>script.php</scriptfile>
@@ -27,6 +27,7 @@
         </schemas>
     </update>
     <files folder="components/com_scholarships">
+        <folder>forms</folder>
         <folder>language</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
