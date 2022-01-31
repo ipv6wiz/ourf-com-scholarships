@@ -13,6 +13,12 @@ use Joomla\CMS\Router\Route;
 <form action="<?php echo Route::_('index.php?option=com_scholarships'); ?>" method="post" name="siteForm" id="siteForm">
     <div class="container">
         <div class="row">
+            <?php
+            // Search tools bar
+            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+            ?>
+        </div>
+        <div class="row">
             <table class="table">
                 <thead>
                 <tr>
