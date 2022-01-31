@@ -17,6 +17,30 @@ class HtmlView extends BaseHtmlView
     protected $items;
     protected $colHeadings;
     protected $pagination;
+    /**
+     * The model state
+     *
+     * @var  \JObject
+     * @since
+     */
+    protected $state;
+
+    /**
+     * Form object for search filters
+     *
+     * @var  \JForm
+     * @since
+     */
+    public $filterForm;
+
+    /**
+     * The active search filters
+     *
+     * @var  array
+     * @since
+     */
+    public $activeFilters;
+
     protected $excludeColumns = array(
         'id',
         'state',
@@ -42,6 +66,9 @@ class HtmlView extends BaseHtmlView
         $this->items = $this->itemsObj['items'];
         $this->colHeadings = $this->itemsObj['colHeadings'];
         $this->pagination = $this->get('Pagination');
+        $this->state         = $this->get('State');
+        $this->filterForm    = $this->get('FilterForm');
+        $this->activeFilters = $this->get('ActiveFilters');
         parent::display($tpl);
     }
 }
