@@ -31,7 +31,7 @@
         <folder>src</folder>
         <folder>tmpl</folder>
     </files>
-    <languages folder="site">
+    <languages folder="components/com_scholarships">
         <language tag="en-GB">language/en-GB/com_scholarships.ini</language>
     </languages>
     <administration>
@@ -54,7 +54,7 @@
         <files folder="./">
             <filename>scholarships.xml</filename>
         </files>
-        <languages folder="admin">
+        <languages folder="administrator/components/com_scholarships">
             <language tag="en-GB">language/en-GB/com_scholarships.ini</language>
             <language tag="en-GB">language/en-GB/com_scholarships.sys.ini</language>
         </languages>
