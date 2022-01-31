@@ -12,12 +12,13 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 // echo '<pre>Items : '.print_r($this->items,true).'</pre><br>';
 ?>
-<form action="<?php echo Route::_('index.php?option=com_scholarships'); ?>" method="post" name="siteForm" id="siteForm">
+<form action="<?php echo Route::_('index.php?option=com_scholarships&view=scholarships'); ?>" method="post" name="siteForm" id="siteForm">
     <div class="container">
         <div class="row">
             <?php
             // Search tools bar
-            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+            $options = array('formSelector' => 'siteForm');
+            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options'=> $options));
             ?>
         </div>
         <div class="row">
