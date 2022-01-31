@@ -7,6 +7,8 @@
  * @license     GPL2
  */
 \defined('_JEXEC') or die;
+
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 // echo '<pre>Items : '.print_r($this->items,true).'</pre><br>';
 ?>
