@@ -17,7 +17,12 @@ use Joomla\CMS\Router\Route;
         <div class="row">
             <?php
             // Search tools bar
-            $options = array('formSelector' => 'siteForm');
+            $options = array(
+                'formSelector' => '#siteForm',
+                'filtersHidden' => true,
+                'showSelector' => false,
+                'showNoResults' => false
+            );
             echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options'=> $options));
             ?>
         </div>
