@@ -11,16 +11,6 @@
         />
 
         <field
-                name="published"
-                type="status"
-                label="JOPTION_SELECT_PUBLISHED"
-                onchange="this.form.submit();"
-                extension="com_scholarships"
-        >
-            <option value="">JOPTION_SELECT_PUBLISHED</option>
-        </field>
-
-        <field
                 addfieldprefix="OURF\Component\Scholarships\Field"
                 name="scholarship_year"
                 type="year"
@@ -41,6 +31,7 @@
                 hint="COM_SCHOLARSHIPS_FILTER_RECIPIENT_HINT"
                 onchange="this.form.submit();"
         >
+            <option value="">COM_SCHOLARSHIPS_FILTER_RECIPIENT_HINT</option>
         </field>
 
         <field
