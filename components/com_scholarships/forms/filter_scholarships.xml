@@ -41,7 +41,6 @@
                 hint="COM_SCHOLARSHIPS_FILTER_RECIPIENT_HINT"
                 onchange="this.form.submit();"
         >
-            <option value="0">COM_SCHOLARSHIPS_FILTER_RECIPIENT_HINT</option>
         </field>
 
         <field

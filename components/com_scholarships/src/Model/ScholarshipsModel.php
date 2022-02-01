@@ -199,16 +199,6 @@ class ScholarshipsModel extends ListModel
                 $query->where($db->quoteName('a.state') . ' = :state')
                     ->bind(':state', $state, ParameterType::INTEGER);
             }
-//            elseif (!is_numeric($workflowStage))
-//            {
-//                $query->whereIn(
-//                    $db->quoteName('a.state'),
-//                    [
-//                        ContentComponent::CONDITION_PUBLISHED,
-//                        ContentComponent::CONDITION_UNPUBLISHED,
-//                    ]
-//                );
-//            }
         }
 
         // Filter by year(s)
