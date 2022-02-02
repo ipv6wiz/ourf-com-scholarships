@@ -45,6 +45,11 @@ class YearField extends ListField
             // Return the result
             if ($options = $db->loadObjectList())
             {
+                $year = date("Y");
+                if($options[0]->value !== $year) {
+                    $item = (object) array('value'=>$year, 'text'=>$year);
+                    array_unshift($options, $item);
+                }
                 static::$options[$hash] = array_merge(static::$options[$hash], $options);
             }
         }

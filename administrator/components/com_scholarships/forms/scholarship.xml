@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<form>
+<form addfieldprefix="OURF\Component\Scholarships\Administrator\Field">
     <fieldset>
         <field
             name="id"
@@ -11,9 +11,10 @@
         />
         <field
             name="scholarship_year"
-            type="number"
+            type="year"
             label="COM_SCHOLARSHIPS_FIELD_YEAR_LABEL"
             required="true"
+            layout="joomla.form.field.list-fancy-select"
             size="4"
         />
         <field
