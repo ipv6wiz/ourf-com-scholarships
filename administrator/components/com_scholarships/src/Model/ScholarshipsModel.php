@@ -316,7 +316,7 @@ class ScholarshipsModel extends ListModel
      *
      * @since   4.0.0
      */
-    public function getTransitions(): bool|array
+    public function getTransitions()
     {
         // Get a storage key.
         $store = $this->getStoreId('getTransitions');
