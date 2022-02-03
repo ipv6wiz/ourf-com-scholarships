@@ -189,8 +189,8 @@ class ScholarshipsModel extends ListModel
             ->join('LEFT', $db->quoteName('#__categories', 'e'), $db->quoteName('e.id').' =  '.$db->quoteName('a.catid'));
 
         // Filter by published state
-        $published = (string) $this->getState('filter.published');
-
+//        $published = (string) $this->getState('filter.published');
+        $published = "1";
         if ($published !== '*')
         {
             if (is_numeric($published))
