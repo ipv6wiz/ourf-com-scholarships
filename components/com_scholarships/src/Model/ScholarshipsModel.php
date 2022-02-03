@@ -64,6 +64,11 @@ class ScholarshipsModel extends ListModel
         parent::__construct($config);
     }
 
+    public function getFilterForm($data = array(), $loadData = true)
+    {
+        $form = parent::getFilterForm($data, $loadData);
+        return $form;
+    }
 
     /**
      * Method to auto-populate the model state.
