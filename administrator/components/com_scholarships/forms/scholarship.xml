@@ -101,5 +101,10 @@
             checked="0"
             default="0"
         />
+        <field
+                name="scholarship_fk_color"
+                type="hidden"
+                default="0"
+        />
     </fieldset>
 </form>
