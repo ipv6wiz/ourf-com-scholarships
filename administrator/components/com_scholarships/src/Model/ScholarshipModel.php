@@ -137,10 +137,65 @@ class ScholarshipModel extends AdminModel implements WorkflowModelInterface
     public function save($data)
     {
         $this->workflowBeforeSave();
+        $data['scholarship_fk_color'] = $this->getColor($data['scholarship_year']);
         if(parent::save($data)) {
             $this->workflowAfterSave($data);
             return true;
         }
         return false;
+    }
+
+    private function getColor($year) {
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true)
+            -> select($db->quoteName('fk_colors', 'color'))
+            ->from($db->quoteName('#__scholarship_year_colors'))
+            ->where($db->quoteName('year').' = '.$db->quote($year))
+            ->setLimit(1);
+        $db->setQuery($query);
+        $color = $db->loadAssoc()['color'];
+
+        if(!$color) {
+            $color = $this->getNextColor($db, $year);
+        }
+        return $color;
+    }
+
+    private function getNextColor(&$db, $year) {
+        $query = $db->getQuery(true)
+            ->select ('count(*) as color_count')
+            ->from ($db->quoteName('#__scholarship_colors'));
+        $db->setQuery($query);
+        $color_count = $db->loadAssoc()['color_count'];
+        $query = $db->getQuery(true)
+            -> select($db->quoteName('fk_colors', 'last_color'))
+            ->from($db->quoteName('#__scholarship_year_colors'))
+            ->order($db->quoteName('id'). "DESC")
+            ->setLimit(1);
+        $db->setQuery($query);
+        $last_color = $db->loadAssoc()['last_color'];
+        $color = (($last_color + 1) % $color_count !== 0 ) ? $last_color + 1 : 1;
+        $this->addNewYearColor($db, $year, $color);
+        return $color;
+    }
+
+    private function addNewYearColor(&$db, $year, $color) {
+        $table = $this->getTable('YearColor');
+        $data = ['fk_colors'=>$color, 'year'=>$year];
+        if (!$table->bind($data))
+        {
+            $this->setError($table->getError());
+            return false;
+        }
+        // Prepare the row for saving
+        $this->prepareTable($table);
+        // Store the data.
+        if (!$table->store())
+        {
+            $this->setError($table->getError());
+            return false;
+        }
+        // Clean the cache.
+        $this->cleanCache();
     }
 }
