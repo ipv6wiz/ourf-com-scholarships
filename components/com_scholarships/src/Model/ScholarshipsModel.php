@@ -285,7 +285,7 @@ class ScholarshipsModel extends ListModel
         }
 
         // Add the list ordering clause.
-        $orderCol  = $this->state->get('list.scholarship_year', 'scholarship_year');
+        $orderCol  = $this->state->get('list.ordering', 'scholarship_year');
         $orderDirn = $this->state->get('list.direction', 'DESC');
 
         $ordering = $db->escape($orderCol) . ' ' . $db->escape($orderDirn);
