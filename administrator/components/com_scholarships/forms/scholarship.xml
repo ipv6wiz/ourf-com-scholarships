@@ -85,8 +85,7 @@
                 name="scholarship_abstract_pdf"
                 label="COM_SCHOLARSHIP_SCHOLARSHIP_ABSTRACT_PDF_LABEL"
                 directory="documents/scholarships/abstracts"
-                accept=".pdf,application/pdf"
-                types="documents"
+                mediatype="pdf"
                 preview="false"
                 multiple="false"
         />
@@ -95,8 +94,7 @@
                 name="scholarship_profile_pdf"
                 label="COM_SCHOLARSHIP_SCHOLARSHIP_PROFILE_PDF_LABEL"
                 directory="documents/scholarships/profiles"
-                accept=".pdf,application/pdf"
-                types="documents"
+                mediatype="pdf"
                 preview="false"
                 multiple="false"
         />
