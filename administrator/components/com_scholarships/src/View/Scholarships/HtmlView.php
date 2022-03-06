@@ -10,6 +10,8 @@
 namespace OURF\Component\Scholarships\Administrator\View\Scholarships;
 \defined('_JEXEC') or die;
 
+require_once (JPATH_ADMINISTRATOR.'/components/com_plotalot/helpers/plotalot.php');
+
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
@@ -19,6 +21,7 @@ use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use OURF\Component\Scholarships\Administrator\Extension\ScholarshipsComponent;
 use OURF\Component\Scholarships\Administrator\Helper\ScholarshipHelper;
+
 
 /**
  * View class for a list of Scholarships.
@@ -77,6 +80,9 @@ class HtmlView extends BaseHtmlView
      */
     private $isEmptyState = false;
 
+    public $charts = [];
+    private $plots = [];
+
     /**
      * Method to display the view.
      *
@@ -106,7 +112,114 @@ class HtmlView extends BaseHtmlView
             $this->transitions = $this->get('Transitions');
         }
         $this->addToolbar();
+        $this->addCharts();
         parent::display($tpl);
+    }
+
+    protected function addCharts()
+    {
+        $plotalot = new \Plotalot();
+        $this->yearPieChart();
+        $this->yearLineChart();
+        $this->yearComboChart();
+        foreach ($this->plots as $plot) {
+            $this->charts[$plot->id] = $plotalot->drawChart($plot);
+        }
+
+    }
+
+    private function yearPieChart()
+    {
+        $plot_info = new \stdClass();
+        $plot_info->id = sizeof($this->plots) + 1;
+        $plot_info->chart_title = 'By Year';
+        $plot_info->chart_type = CHART_TYPE_PIE_3D_V;
+//        $plot_info->chart_option = PIE_TEXT_LABEL;
+        $plot_info->legend_type = LEGEND_LABELLED;
+        $plot_info->x_size = 600;
+        $plot_info->y_size = 400;
+        $plot_info->num_plots = 1;
+// construct the plot array
+        $plot_info->plot_array = array();
+        $plot_info->plot_array[0]['enable'] = 1;
+        $plot_info->plot_array[0]['colour'] = '7C78FF';
+        $plot_info->plot_array[0]['style'] = PIE_MULTI_COLOUR;
+        $query = "select scholarship_year, count(*) as qty FROM #__scholarships where state=1 group by scholarship_year";
+        $plot_info->plot_array[0]['query'] = $query;
+        array_push($this->plots, $plot_info);
+    }
+
+    private function yearLineChart()
+    {
+        $plot_info = new \stdClass();
+        $plot_info->id = sizeof($this->plots) + 1;
+        $plot_info->chart_title = 'By Year';
+        $plot_info->chart_type = CHART_TYPE_LINE;
+//        $plot_info->chart_option = PIE_TEXT_LABEL;
+//        $plot_info->legend_type = LEGEND_LABELLED;
+        $plot_info->x_size = 600;
+        $plot_info->y_size = 400;
+        $plot_info->num_plots = 1;
+// construct the plot array
+        $plot_info->plot_array = array();
+        $plot_info->plot_array[0]['enable'] = 1;
+        $plot_info->plot_array[0]['colour'] = '00FF00';
+        $plot_info->plot_array[0]['style'] = LINE_THICK_SOLID;
+        $query = "select scholarship_year, count(*) as qty FROM #__scholarships where state=1 group by scholarship_year";
+        $plot_info->plot_array[0]['query'] = $query;
+        array_push($this->plots, $plot_info);
+    }
+
+    private function yearComboChart()
+    {
+        $query = "select UNIX_TIMESTAMP(STR_TO_DATE(concat(scholarship_year, '-01-01'), '%Y-%m-%d')) as Year, count(*) as qty FROM #__scholarships where state=1 group by scholarship_year";
+        $plot_info = new \stdClass();
+        $plot_info->id = sizeof($this->plots) + 1;
+        $plot_info->chart_title = 'By Year';
+        $plot_info->chart_type = CHART_TYPE_COMBO_STACK;
+//        $plot_info->chart_option = PIE_TEXT_LABEL;
+//        $plot_info->legend_type = LEGEND_LABELLED;
+        $plot_info->x_format = 299;
+        $plot_info->custom_x_format="yyyy";
+        $plot_info->x_size = 600;
+        $plot_info->y_size = 400;
+        $plot_info->num_plots = 2;
+// construct the plot array
+        $plot_info->plot_array = array();
+        $plot_info->plot_array[0]['enable'] = 1;
+        $plot_info->plot_array[0]['colour'] = '00FF00';
+        $plot_info->plot_array[0]['style'] = 0;
+//        $plot_info->plot_array[0]['type'] = 'bars';
+        $plot_info->plot_array[0]['query'] = $query;
+
+        $plot_info->plot_array[1]['enable'] = 1;
+        $plot_info->plot_array[1]['colour'] = '00FF00';
+        $plot_info->plot_array[1]['style'] = 60;
+//        $plot_info->plot_array[1]['type'] = 'line';
+        $plot_info->plot_array[1]['query'] = $query;
+
+        array_push($this->plots, $plot_info);
+    }
+
+    private function schoolBarChart()
+    {
+        $plot_info = new \stdClass();
+        $plot_info->id = sizeof($this->plots) + 1;
+        $plot_info->chart_title = 'By Year';
+        $plot_info->chart_type = CHART_TYPE_LINE;
+//        $plot_info->chart_option = PIE_TEXT_LABEL;
+//        $plot_info->legend_type = LEGEND_LABELLED;
+        $plot_info->x_size = 600;
+        $plot_info->y_size = 400;
+        $plot_info->num_plots = 1;
+// construct the plot array
+        $plot_info->plot_array = array();
+        $plot_info->plot_array[0]['enable'] = 1;
+        $plot_info->plot_array[0]['colour'] = '00FF00';
+        $plot_info->plot_array[0]['style'] = LINE_THICK_SOLID;
+        $query = "select scholarship_year, count(*) as qty FROM #__scholarships where state=1 group by scholarship_year";
+        $plot_info->plot_array[0]['query'] = $query;
+        array_push($this->plots, $plot_info);
     }
 
     /**
