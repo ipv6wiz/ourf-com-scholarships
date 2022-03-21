@@ -62,33 +62,26 @@ $this->document->addScript("https://www.gstatic.com/charts/loader.js");
 foreach ($this->charts as $chart ) {
     $this->document->addCustomTag($chart);
 }
-
+$chartId = 1;
 ?>
 <div class="accordion" id="scholarshipsAccordion">
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Scholarship Statistics
             </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <div class="row">
-                    <div class="col">
-                        <div id="chart_1"></div>
+                <?php for($r=0; $r<$this->chartRows; $r++): ?>
+                    <div class="row">
+                        <?php for($c=0; $c<$this->chartCols; $c++): ?>
+                            <div class="col">
+                                <div id="chart_<?php echo $chartId; $chartId++; ?>"></div>
+                            </div>
+                        <?php endfor; ?>
                     </div>
-                    <div class="col">
-                        <div id="chart_2"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div id="chart_3"></div>
-                    </div>
-                    <div class="col">
-<!--                        <div id="chart_2"></div>-->
-                    </div>
-                </div>
+                <?php endfor; ?>
             </div>
         </div>
     </div>

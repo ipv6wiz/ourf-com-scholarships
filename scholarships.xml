@@ -41,6 +41,7 @@
             <menu link="option=com_scholarships&amp;view=statuses">COM_SCHOLARSHIP_STATUSES</menu>
             <menu link="option=com_scholarships&amp;view=colleges">COM_SCHOLARSHIP_COLLEGES</menu>
             <menu link="option=com_scholarships&amp;view=departments">COM_SCHOLARSHIP_DEPARTMENTS</menu>
+            <menu link="option=com_scholarships&amp;view=optiontypes">COM_SCHOLARSHIP_OPTIONS</menu>
         </submenu>
         <files folder="administrator/components/com_scholarships">
             <filename>config.xml</filename>

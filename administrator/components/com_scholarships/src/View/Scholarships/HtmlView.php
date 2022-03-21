@@ -82,6 +82,8 @@ class HtmlView extends BaseHtmlView
 
     public $charts = [];
     private $plots = [];
+    protected $chartCols = 2;
+    protected $chartRows = 0;
 
     /**
      * Method to display the view.
@@ -122,10 +124,11 @@ class HtmlView extends BaseHtmlView
         $this->yearPieChart();
         $this->yearLineChart();
         $this->yearComboChart();
+        $this->schoolPieChart();
         foreach ($this->plots as $plot) {
             $this->charts[$plot->id] = $plotalot->drawChart($plot);
         }
-
+        $this->chartRows = floor(sizeof($this->charts)/$this->chartCols) + (sizeof($this->charts) % $this->chartCols === 0 ? 0 : 1);
     }
 
     private function yearPieChart()
@@ -201,23 +204,23 @@ class HtmlView extends BaseHtmlView
         array_push($this->plots, $plot_info);
     }
 
-    private function schoolBarChart()
+    private function schoolPieChart()
     {
         $plot_info = new \stdClass();
         $plot_info->id = sizeof($this->plots) + 1;
-        $plot_info->chart_title = 'By Year';
-        $plot_info->chart_type = CHART_TYPE_LINE;
+        $plot_info->chart_title = 'By School';
+        $plot_info->chart_type = CHART_TYPE_PIE_3D_V;
 //        $plot_info->chart_option = PIE_TEXT_LABEL;
-//        $plot_info->legend_type = LEGEND_LABELLED;
+        $plot_info->legend_type = LEGEND_LABELLED;
         $plot_info->x_size = 600;
         $plot_info->y_size = 400;
         $plot_info->num_plots = 1;
 // construct the plot array
         $plot_info->plot_array = array();
         $plot_info->plot_array[0]['enable'] = 1;
-        $plot_info->plot_array[0]['colour'] = '00FF00';
-        $plot_info->plot_array[0]['style'] = LINE_THICK_SOLID;
-        $query = "select scholarship_year, count(*) as qty FROM #__scholarships where state=1 group by scholarship_year";
+        $plot_info->plot_array[0]['colour'] = '7C78FF';
+        $plot_info->plot_array[0]['style'] = PIE_MULTI_COLOUR;
+        $query = "select scholarship_college_name as College, count(*) as qty from #__scholarships a left join #__scholarship_colleges b on b.id = a.scholarship_fk_scholarship_college where a.state=1 group by College order by qty DESC;";
         $plot_info->plot_array[0]['query'] = $query;
         array_push($this->plots, $plot_info);
     }
@@ -325,7 +328,7 @@ class HtmlView extends BaseHtmlView
                 ->listCheck(true);
         }
 
-        if ($user->authorise('core.admin', 'com_scholarships') || $user->authorise('core.options', 'com_scholarships'))
+        if ($user->authorise('core.admin', 'com_scholarships') || $user->authorise('core.optiontypes', 'com_scholarships'))
         {
             $toolbar->preferences('com_scholarships');
         }

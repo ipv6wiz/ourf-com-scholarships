@@ -23,7 +23,7 @@ use Joomla\CMS\Router\Route;
                 'showSelector' => false,
                 'showNoResults' => false
             );
-            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'options'=> $options));
+            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this, 'optiontypes'=> $options));
             ?>
         </div>
         <div class="row">

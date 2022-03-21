@@ -212,7 +212,7 @@ class HtmlView extends BaseHtmlView
                 ->listCheck(true);
         }
 
-        if ($user->authorise('core.admin', 'com_scholarships') || $user->authorise('core.options', 'com_scholarships'))
+        if ($user->authorise('core.admin', 'com_scholarships') || $user->authorise('core.optiontypes', 'com_scholarships'))
         {
             $toolbar->preferences('com_scholarships');
         }

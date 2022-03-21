@@ -3,11 +3,10 @@
  * @package     ${NAMESPACE}
  * @subpackage  com_scholarships
  *
- * @copyright   Copyright (C) 2006 - 2021 MultiMediaCommunications. All rights reserved.
+ * @copyright   Copyright (C) 2006 - 2022 MultiMediaCommunications. All rights reserved.
  * @license     GPL2
  */
-
-namespace OURF\Component\Scholarships\Administrator\View\Departments;
+namespace OURF\Component\Scholarships\Administrator\View\Optiontypes;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
@@ -20,11 +19,6 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use OURF\Component\Scholarships\Administrator\Extension\ScholarshipsComponent;
 use OURF\Component\Scholarships\Administrator\Helper\ScholarshipHelper;
 
-/**
- * View class for a list of Scholarship Statuses.
- *
- * @since  1.0.0
- */
 class HtmlView extends BaseHtmlView
 {
     protected $items;
@@ -125,11 +119,11 @@ class HtmlView extends BaseHtmlView
         // Get the toolbar object instance
         $toolbar = Toolbar::getInstance('toolbar');
 
-        ToolbarHelper::title(Text::_('COM_SCHOLARSHIPS_MANAGER_DEPARTMENTS'), 'address department');
+        ToolbarHelper::title(Text::_('COM_SCHOLARSHIPS_MANAGER_OPTIONS'), 'address scholarship');
 
         if ($canDo->get('core.create') || \count($user->getAuthorisedCategories('com_scholarships', 'core.create')) > 0)
         {
-            $toolbar->addNew('department.add');
+            $toolbar->addNew('scholarship.add');
         }
 
         if (!$this->isEmptyState && ($canDo->get('core.edit.state') || \count($this->transitions)))
@@ -149,7 +143,7 @@ class HtmlView extends BaseHtmlView
                     ->text('COM_SCHOLARSHIPS_RUN_TRANSITIONS')
                     ->buttonClass('text-center py-2 h3');
 
-                $cmd = "Joomla.submitbutton('departments.runTransition');";
+                $cmd = "Joomla.submitbutton('scholarships.runTransition');";
                 $messages = "{error: [Joomla.JText._('JLIB_HTML_PLEASE_MAKE_A_SELECTION_FROM_THE_LIST')]}";
                 $alert = 'Joomla.renderMessages(' . $messages . ')';
                 $cmd   = 'if (document.adminForm.boxchecked.value == 0) { ' . $alert . ' } else { ' . $cmd . ' }';
@@ -168,27 +162,27 @@ class HtmlView extends BaseHtmlView
 
             if ($canDo->get('core.edit.state'))
             {
-                $childBar->publish('departments.publish')->listCheck(true);
+                $childBar->publish('optiontypes.publish')->listCheck(true);
 
-                $childBar->unpublish('departments.unpublish')->listCheck(true);
+                $childBar->unpublish('optiontypes.unpublish')->listCheck(true);
 
                 $childBar->standardButton('featured')
                     ->text('JFEATURE')
-                    ->task('departments.featured')
+                    ->task('optiontypes.featured')
                     ->listCheck(true);
 
                 $childBar->standardButton('unfeatured')
                     ->text('JUNFEATURE')
-                    ->task('departments.unfeatured')
+                    ->task('optiontypes.unfeatured')
                     ->listCheck(true);
 
-                $childBar->archive('departments.archive')->listCheck(true);
+                $childBar->archive('optiontypes.archive')->listCheck(true);
 
-                $childBar->checkin('departments.checkin')->listCheck(true);
+                $childBar->checkin('optiontypes.checkin')->listCheck(true);
 
                 if ($this->state->get('filter.published') != ScholarshipsComponent::CONDITION_TRASHED)
                 {
-                    $childBar->trash('departments.trash')->listCheck(true);
+                    $childBar->trash('optiontypes.trash')->listCheck(true);
                 }
             }
 
@@ -206,7 +200,7 @@ class HtmlView extends BaseHtmlView
 
         if (!$this->isEmptyState && $this->state->get('filter.published') == ScholarshipsComponent::CONDITION_TRASHED && $canDo->get('core.delete'))
         {
-            $toolbar->delete('departments.delete')
+            $toolbar->delete('scholarships.delete')
                 ->text('JTOOLBAR_EMPTY_TRASH')
                 ->message('JGLOBAL_CONFIRM_DELETE')
                 ->listCheck(true);
@@ -217,6 +211,6 @@ class HtmlView extends BaseHtmlView
             $toolbar->preferences('com_scholarships');
         }
 
-        $toolbar->help('ScholarshipsDepartment');
+        $toolbar->help('Scholarships');
     }
 }

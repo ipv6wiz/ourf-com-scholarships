@@ -13,22 +13,15 @@ namespace OURF\Component\Scholarships\Site\Model;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
-use Joomla\CMS\Language\Multilanguage;
-use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
-use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\Component\Content\Administrator\Extension\ContentComponent;
-use Joomla\Component\Content\Site\Helper\AssociationHelper;
 use Joomla\Database\ParameterType;
 use Joomla\Registry\Registry;
-use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 
 class ScholarshipsModel extends ListModel
 {
-    protected $rowColors= [
+    protected array $rowColors= [
         'table-primary',
         'table-secondary',
         'table-success',
@@ -37,7 +30,7 @@ class ScholarshipsModel extends ListModel
         'table-info',
     ];
 
-    protected $colHeadings = [
+    protected array $colHeadings = [
         'Year',
         'Recipient',
         'College',
@@ -75,11 +68,12 @@ class ScholarshipsModel extends ListModel
      *
      * Note. Calling getState in this method will result in recursion.
      *
-     * @param   string  $ordering   An optional ordering field.
-     * @param   string  $direction  An optional direction (asc|desc).
+     * @param string $ordering An optional ordering field.
+     * @param string $direction An optional direction (asc|desc).
      *
      * @return  void
      *
+     * @throws \Exception
      * @since   1.6
      */
     protected function populateState($ordering = 'scholarship_year', $direction = 'desc')
@@ -194,8 +188,9 @@ class ScholarshipsModel extends ListModel
             ->join('LEFT', $db->quoteName('#__categories', 'e'), $db->quoteName('e.id').' =  '.$db->quoteName('a.catid'));
 
         // Filter by published state
-//        $published = (string) $this->getState('filter.published');
-        $published = "1";
+        //        $published = "1";
+        $published = (string) $this->getState('filter.published');
+
         if ($published !== '*')
         {
             if (is_numeric($published))
